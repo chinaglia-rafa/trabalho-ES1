@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'trabalhoES1';
+
+  public menu = [
+    { name: 'Login', icon: 'login', link: '/login' },
+    { name: 'Home', icon: 'home', link: '/home' },
+    { name: 'Sobre', icon: 'info', link: '/about' },
+  ];
 }

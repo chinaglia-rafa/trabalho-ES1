@@ -114,5 +114,9 @@
       }
     }
   },
-  "defaultProject": "trabalhoES1"
+  "defaultProject": "trabalhoES1",
+  "cli": {
+    "analytics": false
+  }
+
 }
