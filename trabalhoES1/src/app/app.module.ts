@@ -3,6 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import {AngularFireDatabaseModule} from '@angular/fire/database'
+
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { AboutComponent } from './pages/about/about.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +31,10 @@ import { AboutComponent } from './pages/about/about.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
+
     BrowserAnimationsModule,
     MatSidenavModule,
     MatIconModule,
@@ -33,6 +43,7 @@ import { AboutComponent } from './pages/about/about.component';
     MatButtonModule,
     MatMenuModule,
     MatListModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
