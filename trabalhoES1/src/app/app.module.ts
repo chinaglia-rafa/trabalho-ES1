@@ -19,6 +19,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { AboutComponent } from './pages/about/about.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 
 
 @NgModule({
@@ -43,6 +47,10 @@ import { AboutComponent } from './pages/about/about.component';
     MatButtonModule,
     MatMenuModule,
     MatListModule,
+
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
 
   ],
   providers: [],

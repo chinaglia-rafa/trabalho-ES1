@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div class="caixa">
+    <h1 class="tituloCaixa">Login</h1>
+    <p>
+        <mat-form-field appearance="standard" class="formulario">
+            <mat-label>e-mail</mat-label>
+            <input matInput placeholder="endereço@dominio.com" [formControl]="email" required>
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="standard" class="formulario">
+            <mat-label>senha</mat-label>
+            <input type="password" matInput placeholder="senha">
+        </mat-form-field>
+        <br>
+        <button color="primary" mat-raised-button class="acesso">Acesssar</button>
+    </p>
+</div>
