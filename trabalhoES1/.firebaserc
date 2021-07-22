@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "teste-d20c6": {
+      "hosting": {
+        "trabalhoES1": [
+          "teste-d20c6"
+        ]
+      }
+    }
+  }
+}
