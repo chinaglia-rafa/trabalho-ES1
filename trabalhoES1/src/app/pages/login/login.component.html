@@ -9,9 +9,9 @@
         <br>
         <mat-form-field appearance="standard" class="formulario">
             <mat-label>senha</mat-label>
-            <input type="password" matInput placeholder="senha">
+            <input type="password" matInput [formControl]="senha" placeholder="senha">
         </mat-form-field>
         <br>
-        <button color="primary" mat-raised-button class="acesso">Acesssar</button>
+        <button color="primary" mat-raised-button (click)="logIn()" class="acesso">Acesssar</button>
     </p>
 </div>
