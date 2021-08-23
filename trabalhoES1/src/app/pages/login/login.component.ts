@@ -40,11 +40,7 @@ export class LoginComponent implements OnInit {
     return this.ngFireAuth.signInWithEmailAndPassword(this.email.value, this.senha.value).then((res) => {
       console.log(res);
     }).catch(() =>{
-      if (this.email.hasError('required')) {
-        return 'Você deve inserir um e-mail valido';
-      }
-  
-      return this.email.hasError('email') ? 'Not a valid email' : '';
+      alert('email ou senha invalidos')
     })
   }
 
