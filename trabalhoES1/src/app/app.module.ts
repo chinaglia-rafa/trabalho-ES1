@@ -3,6 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import {AngularFireDatabaseModule} from '@angular/fire/database'
+
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,6 +19,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { AboutComponent } from './pages/about/about.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewReportComponent } from './components/report/new-report/new-report.component';
 import { ListComponent } from './pages/relatorios/list/list.component';
 
 @NgModule({
@@ -22,11 +30,16 @@ import { ListComponent } from './pages/relatorios/list/list.component';
     LoginComponent,
     HomeComponent,
     AboutComponent,
+    NewReportComponent,
     ListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+
     BrowserAnimationsModule,
     MatSidenavModule,
     MatIconModule,
@@ -35,6 +48,11 @@ import { ListComponent } from './pages/relatorios/list/list.component';
     MatButtonModule,
     MatMenuModule,
     MatListModule,
+
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
