@@ -21,6 +21,7 @@ import { MatListModule } from '@angular/material/list';
 import { AboutComponent } from './pages/about/about.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewReportComponent } from './components/report/new-report/new-report.component';
 
 
 
@@ -31,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     HomeComponent,
     AboutComponent,
+    NewReportComponent,
   ],
   imports: [
     BrowserModule,
