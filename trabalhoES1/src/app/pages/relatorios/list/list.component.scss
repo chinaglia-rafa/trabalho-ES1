@@ -1,0 +1,45 @@
+.content {
+  background: var(--color-primary);
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 600px) {
+  .content {
+    height: calc(100vh - 56px);
+  }
+}
+
+.list-container {
+  background: white;
+  height: 100%;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  overflow: hidden;
+}
+
+.list-container mat-list {
+  height: 100%;
+  overflow: auto;
+}
+
+.list-container .subheader {
+  font-size: 1.2em;
+  padding: 16px 16px 6px 16px;
+  display: block;
+}
+
+.done {
+  color: #00c853;
+}
+
+.sub-line {
+  opacity: 0.5;
+}
+
+.fab-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
