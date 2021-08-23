@@ -1,0 +1,28 @@
+<div class="content">
+  <div class="list-container">
+    <mat-label class="subheader">Meus relatórios</mat-label>
+    <mat-list>
+      <mat-list-item>
+        <mat-icon mat-list-icon class="done">grading</mat-icon>
+        <div mat-line>Primeiro semestre de 2020</div>
+        <div mat-line class="sub-line"> Maio 2020</div>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon class="done">grading</mat-icon>
+        <div mat-line>Segundo semestre de 2020</div>
+        <div mat-line class="sub-line"> Outubro 2020</div>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>subject</mat-icon>
+        <div mat-line>Primeiro semestre de 2021</div>
+        <div mat-line class="sub-line"> Julho 2021</div>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon>subject</mat-icon>
+        <div mat-line>Segundo semestre de 2021</div>
+        <div mat-line class="sub-line"> Novembro 2021</div>
+      </mat-list-item>
+    </mat-list>
+    <button mat-fab class="fab-button" [routerLink]="'new-report'" aria-label="Adicionar novo relatório" color="primary"><mat-icon>add</mat-icon></button>
+  </div>
+</div>

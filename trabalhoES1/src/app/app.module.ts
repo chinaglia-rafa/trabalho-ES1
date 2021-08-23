@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { AboutComponent } from './pages/about/about.component';
+import { ListComponent } from './pages/relatorios/list/list.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AboutComponent } from './pages/about/about.component';
     LoginComponent,
     HomeComponent,
     AboutComponent,
+    ListComponent,
   ],
   imports: [
     BrowserModule,
