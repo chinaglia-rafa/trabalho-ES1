@@ -1,2 +1,141 @@
-<p>new-report works!</p>
-<img src="https://images.uncyc.org/pt/thumb/3/38/Return_to_Monke.jpg/300px-Return_to_Monke.jpg">
+<div class="intro">
+  <p>
+    Preencha os dados abaixo para submeter o seu relatório semestral. Antes de prosseguir, confira os dados abaixo:
+  </p>
+  <table>
+    <tr>
+      <td>Semestre</td>
+      <td>2º semestre, 2021</td>
+    </tr>
+    <tr>
+      <td>Orientador</td>
+      <td>Marcelo Eduardo</td>
+    </tr>
+  </table>
+</div>
+
+<div class="form">
+  <div class="row">
+    <mat-form-field class="input" appearance="standard">
+      <mat-label>Nome do aluno</mat-label>
+      <input matInput disabled value="Rafael Araújo Chinaglia">
+    </mat-form-field>
+    <mat-form-field class="input" appearance="standard">
+      <mat-label>E-mail</mat-label>
+      <input matInput disabled value="chinaglia.rafa@gmail.com">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="input" appearance="standard">
+      <mat-label>Última atualização</mat-label>
+      <input matInput disabled value="16/02/1993 as 10:30">
+    </mat-form-field>
+    <mat-form-field class="input-long" appearance="standard">
+      <mat-label>Resultado da avaliação do último relatório</mat-label>
+      <input matInput disabled value="Satisfatório">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="input" appearance="standard">
+      <mat-label>Número USP</mat-label>
+      <input matInput placeholder="Digite apenas os números.">
+    </mat-form-field>
+    <mat-form-field class="input-long" appearance="standard">
+      <mat-label>Link do Curriculum Lattes</mat-label>
+      <input matInput placeholder="https://...">
+    </mat-form-field>
+  </div>
+  <div class="row" style="height: 81px;">
+    <mat-radio-group [(ngModel)]="curso" aria-label="Selecione uma opção">
+      <mat-label>Selecione o curso: </mat-label>
+      <mat-radio-button color="primary" value="1">Mestrado</mat-radio-button>
+      <mat-radio-button color="primary" value="2">Doutorado</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field *ngIf="curso == 1" class="input-long" appearance="standard">
+      <mat-label>Último semestre concluído do Mestrado</mat-label>
+      <mat-select>
+        <mat-option value="1">1º semestre</mat-option>
+        <mat-option value="2">2º semestre</mat-option>
+        <mat-option value="3">3º semestre</mat-option>
+        <mat-option value="4">4º semestre</mat-option>
+        <mat-option value="5">5º semestre</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="curso == 2" class="input-long" appearance="standard">
+      <mat-label>Último semestre concluído do Doutorado</mat-label>
+      <mat-select>
+        <mat-option value="1">1º semestre</mat-option>
+        <mat-option value="2">2º semestre</mat-option>
+        <mat-option value="3">3º semestre</mat-option>
+        <mat-option value="4">4º semestre</mat-option>
+        <mat-option value="5">5º semestre</mat-option>
+        <mat-option value="6">6º semestre</mat-option>
+        <mat-option value="7">7º semestre</mat-option>
+        <mat-option value="8">8º semestre</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="row row--flexless">
+    <mat-label>Em quantas disciplinas obrigatórias você ja obteve aprovação?</mat-label>
+    <br>
+    <mat-form-field class="input" appearance="standard">
+      <mat-label>Número de disciplinas</mat-label>
+      <input matInput placeholder="Apenas números">
+    </mat-form-field>
+  </div>
+
+  <div class="row row--flexless">
+    <mat-label>Em quantas disciplinas optativas você ja obteve aprovação?</mat-label>
+    <br>
+    <mat-form-field class="input" appearance="standard">
+      <mat-label>Número de disciplinas</mat-label>
+      <input matInput placeholder="Apenas números">
+    </mat-form-field>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="row row--flexless">
+    <mat-label>
+      Todos os conceitos em disciplinas cursadas no último semestre já foram divulgados?
+      Caso não, espere até 2 dias antes da data máxima definida no site do PPgSI para enviar o seu relatório.
+    </mat-label>
+    <br><br>
+    <mat-radio-group aria-label="Selecione uma opção">
+      <mat-radio-button color="primary" value="1">Sim</mat-radio-button>
+      <mat-radio-button color="primary" value="2">Não</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="row row--flexless">
+    <mat-label>Em quantas disciplinas você foi reprovado desde o início do mestrado/doutorado?</mat-label>
+    <br><br>
+    <mat-radio-group aria-label="Selecione uma opção">
+      <mat-radio-button color="primary" value="0">0</mat-radio-button>
+      <mat-radio-button color="primary" value="1">1</mat-radio-button>
+      <mat-radio-button color="primary" value="2">2</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="row row--flexless">
+    <mat-label>Em quantas disciplinas você foi reprovado no último semestre?</mat-label>
+    <br><br>
+    <mat-radio-group aria-label="Selecione uma opção">
+      <mat-radio-button color="primary" value="0">0</mat-radio-button>
+      <mat-radio-button color="primary" value="1">1</mat-radio-button>
+      <mat-radio-button color="primary" value="2">2</mat-radio-button>
+      <mat-radio-button color="primary" value="3">Terminei as disciplinas</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="row row--flexless">
+    <mat-label>Você já foi aprovado no exame de proficiência em idiomas?</mat-label>
+    <br><br>
+    <mat-radio-group aria-label="Selecione uma opção">
+      <mat-radio-button color="primary" value="1">Sim</mat-radio-button>
+      <mat-radio-button color="primary" value="2">Não</mat-radio-button>
+    </mat-radio-group>
+  </div>
+</div>

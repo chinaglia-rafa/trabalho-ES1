@@ -23,6 +23,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewReportComponent } from './components/report/new-report/new-report.component';
 import { ListComponent } from './pages/relatorios/list/list.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,9 @@ import { ListComponent } from './pages/relatorios/list/list.component';
     MatButtonModule,
     MatMenuModule,
     MatListModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatDividerModule,
 
     MatFormFieldModule,
     ReactiveFormsModule,
