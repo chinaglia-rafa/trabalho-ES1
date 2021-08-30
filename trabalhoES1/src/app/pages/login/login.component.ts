@@ -5,6 +5,8 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { UserDataServiceService } from 'src/app/services/userDataService/user-data-service.service';
+
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit {
     public afStore: AngularFirestore,
     public ngFireAuth: AngularFireAuth,
     public router: Router,  
-   
+    private userDataService: UserDataServiceService
   ) {
     
   }
@@ -39,6 +41,8 @@ export class LoginComponent implements OnInit {
   logIn(){
     return this.ngFireAuth.signInWithEmailAndPassword(this.email.value, this.senha.value).then((res) => {
       console.log(res);
+      this.userDataService.setUserData(res);
+      this.router.navigateByUrl('/home');
     }).catch(() =>{
       alert('email ou senha invalidos')
     })
