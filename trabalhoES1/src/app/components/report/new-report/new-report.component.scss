@@ -38,6 +38,8 @@
 
 .row {
   display: flex;
+  width: 628px;
+  padding: 16px 0;
 }
 
 .row.row--flexless {
@@ -46,12 +48,13 @@
 
 mat-radio-group {
   display: flex;
-  align-items: center;
   margin-right: 16px;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 mat-radio-button {
-  margin-left: 16px;
+  margin: 6px 16px;
 }
 
 mat-divider {
