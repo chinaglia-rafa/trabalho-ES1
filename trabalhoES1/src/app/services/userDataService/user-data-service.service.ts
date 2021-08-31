@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -6,16 +7,26 @@ import { Injectable } from '@angular/core';
 export class UserDataServiceService {
 
   private userData: object = {};
+  
 
-
-  constructor() {
+  constructor(private db: AngularFirestore) {
     
   }
 
-  setUserData(data : object){
-    this.userData = data; 
-  }
+  async setUserData(data : any){
+    
+    const response = await this.getUserDataFromDB(data);
 
+    console.log("response: ",response)
+    // console.log("leader: ", response.leader.data())
+
+    this.userData = data;
+  }
+  async getUserDataFromDB(data: any){
+    const response = await (await this.db.firestore.collection("userData").doc(data.user.uid).get()).data();
+    
+    return response;
+  }
   getUserData(){
     return this.userData;
   }
