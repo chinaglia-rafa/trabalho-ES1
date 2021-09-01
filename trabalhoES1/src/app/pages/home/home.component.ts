@@ -19,6 +19,14 @@ export class HomeComponent implements OnInit {
     console.log("UsuarioLogado: ", this.userDataService.getUserData());
   }
 
+  getUserData(){
+    const userData = this.userDataService.getUserData();
+
+
+
+    return userData;
+  }
+
   login(): void {
     console.log('login begins');
   }
