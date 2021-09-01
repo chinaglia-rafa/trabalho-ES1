@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class UserDataServiceService {
 
-  private userData: object = {};
+  private userData: any = {};
   
 
   constructor(private db: AngularFirestore) {
@@ -15,15 +15,39 @@ export class UserDataServiceService {
 
   async setUserData(data : any){
     
-    const response = await this.getUserDataFromDB(data);
+    let responseClient : any = await this.getUserDataFromDB(data);
+    let responseLeader : any = {}, finalResult : any = {};
 
-    console.log("response: ",response)
-    // console.log("leader: ", response.leader.data())
 
-    this.userData = data;
+    // console.log("responseClient: ",responseClient)
+    if(responseClient != null)
+    {
+      if(responseClient.type == "aluno")
+      {
+        responseLeader = await this.getLeaderDataFromDB(responseClient.leaderID);
+
+        finalResult = {...responseClient, "leader" : responseLeader};
+      }
+      else{
+        finalResult = responseLeader;
+      }
+      
+    }
+    
+    // console.log("leader: ", responseClient.leader.data())
+    console.log("finalResult: ",finalResult)
+    this.userData = finalResult;
   }
   async getUserDataFromDB(data: any){
-    const response = await (await this.db.firestore.collection("userData").doc(data.user.uid).get()).data();
+    const response =  (await this.db.firestore.collection("userData").doc(data.user.uid).get()).data();
+    
+    return response;
+  }
+
+
+  async getLeaderDataFromDB(leaderID : string)
+  {
+    const response =  (await this.db.firestore.collection("userData").doc(leaderID).get()).data();
     
     return response;
   }
