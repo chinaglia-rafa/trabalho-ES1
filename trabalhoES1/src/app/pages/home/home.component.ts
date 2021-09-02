@@ -16,9 +16,12 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log("UsuarioLogado: ", this.userDataService.getUserData());
+    //console.log("UsuarioLogado: ", this.userDataService.getUserData());
   }
+  getUserReports(){
+    
 
+  }
   getUserData(){
     const userData = this.userDataService.getUserData();
 
