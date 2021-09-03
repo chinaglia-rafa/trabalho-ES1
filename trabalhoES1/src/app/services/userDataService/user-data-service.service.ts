@@ -7,6 +7,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class UserDataServiceService {
 
   private userData: any = {};
+  private userReports : any = [];
   
 
   constructor(private db: AngularFirestore) {
@@ -17,7 +18,9 @@ export class UserDataServiceService {
     
     let responseClient : any = await this.getUserDataFromDB(data);
     let responseLeader : any = {}, finalResult : any = {};
+    let responseReports : any = {};
 
+    console.log("data set userdata: ",data);
 
     // console.log("responseClient: ",responseClient)
     if(responseClient != null)
@@ -25,8 +28,9 @@ export class UserDataServiceService {
       if(responseClient.type == "aluno")
       {
         responseLeader = await this.getLeaderDataFromDB(responseClient.leaderID);
+        responseReports = await this.getReportsFromDB(data.user.uid);
 
-        finalResult = {...responseClient, "leader" : responseLeader};
+        finalResult = {...responseClient, "leader" : responseLeader, "reports" : responseReports};
       }
       else{
         finalResult = responseLeader;
@@ -44,6 +48,17 @@ export class UserDataServiceService {
     return response;
   }
 
+  async getReportsFromDB(userID : string)
+  {
+    let dataResponse: any = [];
+    console.log("user ID: ",userID);
+    let response = await this.db.collection("reports",  ref => ref.where('studentOwnerCode', '==', userID)).valueChanges().subscribe(data => {
+      data.map((item, index) =>{
+        dataResponse[index] = data[index];
+      })
+    })
+    return dataResponse;
+  }
 
   async getLeaderDataFromDB(leaderID : string)
   {
