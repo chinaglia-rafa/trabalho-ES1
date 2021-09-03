@@ -39,7 +39,10 @@ export class UserDataServiceService {
     }
     
     // console.log("leader: ", responseClient.leader.data())
-    console.log("finalResult: ",finalResult)
+    console.log("finalResult: ",finalResult);
+
+    localStorage.setItem('user', btoa(JSON.stringify(data)));
+
     this.userData = finalResult;
   }
   async getUserDataFromDB(data: any){
