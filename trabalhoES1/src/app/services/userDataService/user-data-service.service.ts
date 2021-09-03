@@ -51,22 +51,12 @@ export class UserDataServiceService {
   async getReportsFromDB(userID : string)
   {
     let dataResponse: any = [];
-    
-    let response = this.db.collection("reports").valueChanges().subscribe(data => {
+    console.log("user ID: ",userID);
+    let response = await this.db.collection("reports",  ref => ref.where('studentOwnerCode', '==', userID)).valueChanges().subscribe(data => {
       data.map((item, index) =>{
         dataResponse[index] = data[index];
       })
     })
-    // .subscribe((val) => {
-
-    //   return val;
-    // })
-    
-    
-    // if(response != undefined)
-    // {
-    //   console.log("response reports: ",response);
-    // }
     return dataResponse;
   }
 
