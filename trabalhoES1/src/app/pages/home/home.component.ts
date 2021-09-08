@@ -37,6 +37,8 @@ export class HomeComponent implements OnInit {
       const user = this.getLocalStorageUser();
       console.log("Local storage converted: ", user);
       this.userDataService.setUserData(user);
+
+      // console.log("get user reports: ",this.getUserReports());
     }
     else{
       this.router.navigateByUrl('/login');
@@ -45,7 +47,9 @@ export class HomeComponent implements OnInit {
   }
   getUserReports(){
     
+    const user : any = this.userDataService.getUserData();
 
+    return user.reports;
   }
   getUserData(){
     const userData = this.userDataService.getUserData();

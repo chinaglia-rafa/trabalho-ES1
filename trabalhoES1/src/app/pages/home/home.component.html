@@ -5,7 +5,7 @@
   <h2>Email: {{ getUserData().email }}</h2>
   <h2>Nome: {{ getUserData().name }}</h2>
   <h2>Tipo de Conta: {{ getUserData().type }}</h2>
-  <h2>Semestre: {{ getUserData().semester }}</h2>
+  <h2>Semestre: {{ getUserData().semester || 'Sem dado'}}</h2>
   <h2>Número USP: {{ getUserData().uspNumber }}</h2>
   
 
