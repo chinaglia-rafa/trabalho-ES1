@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
   getUserData(){
     const userData = this.userDataService.getUserData();
 
-
+    //console.log("getUserData: ", userData);
 
     return userData;
   }
