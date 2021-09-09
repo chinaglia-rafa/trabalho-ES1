@@ -22,10 +22,10 @@ export class LoginComponent implements OnInit {
   constructor(
     public afStore: AngularFirestore,
     public ngFireAuth: AngularFireAuth,
-    public router: Router,  
+    public router: Router,
     private userDataService: UserDataServiceService
   ) {
-    
+
   }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     return this.ngFireAuth.signInWithEmailAndPassword(this.email.value, this.senha.value).then((res) => {
       console.log(res);
       this.userDataService.setUserData(res);
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/relatorios/list');
     }).catch(() =>{
       alert('email ou senha invalidos')
     })

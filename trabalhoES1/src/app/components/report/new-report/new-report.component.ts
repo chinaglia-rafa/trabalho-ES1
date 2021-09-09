@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserDataServiceService } from 'src/app/services/userDataService/user-data-service.service';
 
 @Component({
   selector: 'app-new-report',
@@ -17,7 +18,7 @@ export class NewReportComponent implements OnInit {
   checkNomeOrient(str:any): boolean {
     if(str != '') return true;
     else return false
-  } 
+  }
   checkNumeroUSP(num:any): boolean {
     if(typeof num === 'number' && num.toString.length > 4) return true;
     else return false;
