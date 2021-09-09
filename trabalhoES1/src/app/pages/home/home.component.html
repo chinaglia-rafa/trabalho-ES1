@@ -1,3 +1,17 @@
 <div class="content">
   <button mat-raised-button (click)="login()" color="accent">Login</button>
+
+  <h1>Informações do aluno: </h1>
+  <h2>Email: {{ getUserData().email }}</h2>
+  <h2>Nome: {{ getUserData().name }}</h2>
+  <h2>Tipo de Conta: {{ getUserData().type }}</h2>
+  <h2>Semestre: {{ getUserData().semester || 'Sem dado'}}</h2>
+  <h2>Número USP: {{ getUserData().uspNumber }}</h2>
+  
+
+  <h1>Informações do Orientador: </h1>
+  <h2>Email: {{ getUserData().leader.email }}</h2>
+  <h2>Nome: {{ getUserData().leader.name }}</h2>
+  
+  
 </div>
