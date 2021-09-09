@@ -20,7 +20,7 @@ export class UserDataServiceService {
     let responseLeader : any = {}, finalResult : any = {};
     let responseReports : any = {};
 
-    console.log("data set userdata: ",data);
+    //console.log("data set userdata: ",data);
 
     // console.log("responseClient: ",responseClient)
     if(responseClient != null)
@@ -33,6 +33,9 @@ export class UserDataServiceService {
         finalResult = {...responseClient, "leader" : responseLeader, "reports" : responseReports};
       }
       else{
+
+
+
         finalResult = responseLeader;
       }
       
@@ -54,7 +57,7 @@ export class UserDataServiceService {
   async getReportsFromDB(userID : string)
   {
     let dataResponse: any = [];
-    console.log("user ID: ",userID);
+    //console.log("user ID: ",userID);
     let response = await this.db.collection("reports",  ref => ref.where('studentOwnerCode', '==', userID)).valueChanges().subscribe(data => {
       data.map((item, index) =>{
         dataResponse[index] = data[index];

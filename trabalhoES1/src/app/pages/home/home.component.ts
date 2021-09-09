@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
    }
   isAlreadyLogged(){
     if(localStorage.getItem('user') != null){
-      console.log("local storage: ", localStorage.getItem('user'))
+      //console.log("local storage: ", localStorage.getItem('user'))
       return true
     }
     else{
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
       
 
       const user = this.getLocalStorageUser();
-      console.log("Local storage converted: ", user);
+      //console.log("Local storage converted: ", user);
       this.userDataService.setUserData(user);
 
       // console.log("get user reports: ",this.getUserReports());
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
   }
 
   login(): void {
-    console.log('login begins');
+    //console.log('login begins');
   }
 
 }
