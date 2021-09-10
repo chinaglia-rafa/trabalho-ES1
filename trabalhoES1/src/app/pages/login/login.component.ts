@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
   logIn(){
     return this.ngFireAuth.signInWithEmailAndPassword(this.email.value, this.senha.value).then((res) => {
       console.log(res);
+      localStorage.removeItem("user");
       this.userDataService.setUserData(res);
       this.router.navigateByUrl('/home');
     }).catch(() =>{
