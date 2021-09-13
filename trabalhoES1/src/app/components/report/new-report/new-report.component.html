@@ -18,11 +18,11 @@
   <div class="row">
     <mat-form-field class="input" appearance="standard">
       <mat-label>Nome do aluno</mat-label>
-      <input matInput disabled value="Rafael Araújo Chinaglia">
+      <input matInput disabled [value]="user?.nome || 'Carregando...'">
     </mat-form-field>
     <mat-form-field class="input" appearance="standard">
       <mat-label>E-mail</mat-label>
-      <input matInput disabled value="chinaglia.rafa@gmail.com">
+      <input matInput disabled [value]="user?.email || 'Carregando...'">
     </mat-form-field>
   </div>
   <div class="row">
@@ -32,28 +32,28 @@
     </mat-form-field>
     <mat-form-field class="input-long" appearance="standard">
       <mat-label>Resultado da avaliação do último relatório</mat-label>
-      <input matInput disabled value="Satisfatório">
+      <input matInput disabled [value]="user?.lastResult || 'Carregando...'">
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field class="input" appearance="standard">
       <mat-label>Número USP</mat-label>
-      <input matInput placeholder="Digite apenas os números.">
+      <input matInput placeholder="Digite apenas os números." [value]="user?.uspNumber || 'Carregando...'">
     </mat-form-field>
     <mat-form-field class="input-long" appearance="standard">
       <mat-label>Link do Curriculum Lattes</mat-label>
-      <input matInput placeholder="https://...">
+      <input matInput placeholder="https://..." [value]="user?.lattesLink || 'Carregando...'">
     </mat-form-field>
   </div>
   <div class="row" style="height: 81px;">
-    <mat-radio-group [(ngModel)]="curso" aria-label="Selecione uma opção">
-      <mat-label>Selecione o curso: </mat-label>
+    <mat-radio-group ngDefaultControl [(ngModel)]="curso" aria-label="Selecione uma opção">
+      <mat-label><div class="question-number">1</div> Selecione o curso: </mat-label>
       <mat-radio-button color="primary" value="1">Mestrado</mat-radio-button>
       <mat-radio-button color="primary" value="2">Doutorado</mat-radio-button>
     </mat-radio-group>
-    <mat-form-field *ngIf="curso == 1" class="input-long" appearance="standard">
+    <mat-form-field ngDefaultControl class="input-long" [class.hide]="!curso || curso == 2" appearance="standard">
       <mat-label>Último semestre concluído do Mestrado</mat-label>
-      <mat-select>
+      <mat-select [(ngModel)]="ultimoSemestreMestrado">
         <mat-option value="1">1º semestre</mat-option>
         <mat-option value="2">2º semestre</mat-option>
         <mat-option value="3">3º semestre</mat-option>
@@ -61,9 +61,9 @@
         <mat-option value="5">5º semestre</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field *ngIf="curso == 2" class="input-long" appearance="standard">
+    <mat-form-field ngDefaultControl class="input-long" [class.hide]="!curso || curso == 1" appearance="standard">
       <mat-label>Último semestre concluído do Doutorado</mat-label>
-      <mat-select>
+      <mat-select [(ngModel)]="ultimoSemestreDoutorado">
         <mat-option value="1">1º semestre</mat-option>
         <mat-option value="2">2º semestre</mat-option>
         <mat-option value="3">3º semestre</mat-option>
@@ -79,18 +79,18 @@
   <mat-divider></mat-divider>
 
   <div class="row row--flexless">
-    <mat-label>Em quantas disciplinas obrigatórias você ja obteve aprovação?</mat-label>
+    <mat-label><div class="question-number">2</div> Em quantas disciplinas obrigatórias você ja obteve aprovação?</mat-label>
     <br>
-    <mat-form-field class="input" appearance="standard">
+    <mat-form-field ngDefaultControl [(ngModel)]="disciplinasObrigatoriasAprovadas" class="input" appearance="standard">
       <mat-label>Número de disciplinas</mat-label>
       <input matInput placeholder="Apenas números">
     </mat-form-field>
   </div>
 
   <div class="row row--flexless">
-    <mat-label>Em quantas disciplinas optativas você ja obteve aprovação?</mat-label>
+    <mat-label><div class="question-number">3</div> Em quantas disciplinas optativas você ja obteve aprovação?</mat-label>
     <br>
-    <mat-form-field class="input" appearance="standard">
+    <mat-form-field ngDefaultControl [(ngModel)]="disciplinasOptativasAprovadas" class="input" appearance="standard">
       <mat-label>Número de disciplinas</mat-label>
       <input matInput placeholder="Apenas números">
     </mat-form-field>
@@ -100,29 +100,30 @@
 
   <div class="row row--flexless">
     <mat-label>
+      <div class="question-number">4</div>
       Todos os conceitos em disciplinas cursadas no último semestre já foram divulgados?
       Caso não, espere até 2 dias antes da data máxima definida no site do PPgSI para enviar o seu relatório.
     </mat-label>
     <br><br>
-    <mat-radio-group aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="conceitsDivulgadosUltimoSemestre" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Sim</mat-radio-button>
       <mat-radio-button color="primary" value="2">Não</mat-radio-button>
     </mat-radio-group>
   </div>
 
   <div class="row row--flexless">
-    <mat-label>Em quantas disciplinas você foi reprovado desde o início do mestrado/doutorado?</mat-label>
+    <mat-label><div class="question-number">5</div> Em quantas disciplinas você foi reprovado desde o início do mestrado/doutorado?</mat-label>
     <br><br>
-    <mat-radio-group aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="reprovacoesTotais" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="0">0</mat-radio-button>
       <mat-radio-button color="primary" value="1">1</mat-radio-button>
       <mat-radio-button color="primary" value="2">2</mat-radio-button>
     </mat-radio-group>
   </div>
   <div class="row row--flexless">
-    <mat-label>Em quantas disciplinas você foi reprovado no último semestre?</mat-label>
+    <mat-label><div class="question-number">6</div> Em quantas disciplinas você foi reprovado no último semestre?</mat-label>
     <br><br>
-    <mat-radio-group aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="reprovacoesUltimoSemestre" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="0">0</mat-radio-button>
       <mat-radio-button color="primary" value="1">1</mat-radio-button>
       <mat-radio-button color="primary" value="2">2</mat-radio-button>
@@ -131,18 +132,18 @@
   </div>
 
   <div class="row row--flexless">
-    <mat-label>Você já foi aprovado no exame de proficiência em idiomas?</mat-label>
+    <mat-label><div class="question-number">7</div> Você já foi aprovado no exame de proficiência em idiomas?</mat-label>
     <br><br>
-    <mat-radio-group aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="exameProficienciaIdiomas" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Sim</mat-radio-button>
       <mat-radio-button color="primary" value="2">Não</mat-radio-button>
     </mat-radio-group>
   </div>
 
   <div class="row row--flexless">
-    <mat-label>Você já realizou o exame de qualificação?</mat-label>
+    <mat-label><div class="question-number">8</div> Você já realizou o exame de qualificação?</mat-label>
     <br><br>
-    <mat-radio-group aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="exameQualificacao" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Sim. Fui aprovado.</mat-radio-button>
       <mat-radio-button color="primary" value="2">Sim. Fui reprovado.</mat-radio-button>
       <mat-radio-button color="primary" value="3">Não.</mat-radio-button>
@@ -150,9 +151,9 @@
   </div>
 
   <div class="row row--flexless">
-    <mat-label>Se não qualificou, quanto tempo falta para o limite máximo de qualificação?</mat-label>
+    <mat-label><div [class.disabled]="!exameQualificacao || exameQualificacao == '1'" class="question-number">9</div> Se não qualificou, quanto tempo falta para o limite máximo de qualificação?</mat-label>
     <br><br>
-    <mat-radio-group aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="limiteQualificacao" [disabled]="!exameQualificacao || exameQualificacao == '1'" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Menos de 3 meses</mat-radio-button>
       <mat-radio-button color="primary" value="2">Entre 3 e 6 meses</mat-radio-button>
       <mat-radio-button color="primary" value="3">Mais de 6 meses</mat-radio-button>
@@ -161,11 +162,12 @@
 
   <div class="row row--flexless">
     <mat-label>
+      <div [class.disabled]="!exameQualificacao || exameQualificacao != '1'" class="question-number">10</div>
       Se você já fez sua qualificação e foi aprovado, quanto tempo falta para o limite
       máximo do depósito da sua dissertação/tese?
     </mat-label>
     <br><br>
-    <mat-radio-group aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="limiteDepositoDissertacao" aria-label="Selecione uma opção" [disabled]="!exameQualificacao || exameQualificacao != '1'">
       <mat-radio-button color="primary" value="1">Menos de 3 meses</mat-radio-button>
       <mat-radio-button color="primary" value="2">Entre 3 e 6 meses</mat-radio-button>
       <mat-radio-button color="primary" value="3">Mais de 6 meses</mat-radio-button>
@@ -174,12 +176,13 @@
 
   <div class="row row--flexless">
     <mat-label>
+      <div class="question-number">11</div>
       Quantos artigos referentes a sua pesquisa de mestrado/doutorado você teve
       aceitos ou publicados? (Obs: Você deve inserir os artigos publicados no seu
       currículo Lattes)
     </mat-label>
     <br><br>
-    <mat-radio-group aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="artigosPublicados" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">0</mat-radio-button>
       <mat-radio-button color="primary" value="2">1</mat-radio-button>
       <mat-radio-button color="primary" value="3">2</mat-radio-button>
@@ -189,10 +192,11 @@
 
   <div class="row row--flexless">
     <mat-label>
+      <div class="question-number">12</div>
       Quantos artigos você submeteu e ainda estão aguardando resposta?
     </mat-label>
     <br><br>
-    <mat-radio-group aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="artigosAguardandoResposta" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">0</mat-radio-button>
       <mat-radio-button color="primary" value="2">1</mat-radio-button>
       <mat-radio-button color="primary" value="3">2</mat-radio-button>
@@ -202,10 +206,11 @@
 
   <div class="row row--flexless">
     <mat-label>
+      <div class="question-number">13</div>
       Você possui artigo em preparação para submissão? Qual o estágio dele?
     </mat-label>
     <br><br>
-    <mat-radio-group aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="artigoPreparacao" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Não possuo</mat-radio-button>
       <mat-radio-button color="primary" value="2">Experimentos em elaboração</mat-radio-button>
       <mat-radio-button color="primary" value="3">Aguardando coleta de dados</mat-radio-button>
@@ -219,12 +224,13 @@
 
   <div class="row row--flexless">
     <mat-label>
+      <div class="question-number">14</div>
       Qual o estágio atual de sua pesquisa? Apresente toda e qualquer atividade que
       já tenha sido realizada no contexto de seu projeto de pesquisa (mesmo que
       ainda incompleta). Faça uma descrição detalhada.
     </mat-label>
     <br><br>
-    <mat-form-field class="input-long" appearance="standard">
+    <mat-form-field ngDefaultControl [(ngModel)]="estagioPesquisa" class="input-long" appearance="standard">
       <mat-label>Descreva detalhadamente</mat-label>
       <textarea matInput placeholder="Digite aqui."></textarea>
     </mat-form-field>
@@ -232,11 +238,12 @@
 
   <div class="row row--flexless">
     <mat-label>
+      <div class="question-number">15</div>
       Você participou de algum congressos no país? Se sim, indicar local, se houve
       apresentação de trabalho e se o congresso é ou não internacional.
     </mat-label>
     <br><br>
-    <mat-form-field class="input-long" appearance="standard">
+    <mat-form-field ngDefaultControl [(ngModel)]="congressoPais" class="input-long" appearance="standard">
       <mat-label>Digite aqui</mat-label>
       <textarea matInput placeholder="Digite aqui."></textarea>
     </mat-form-field>
@@ -244,11 +251,12 @@
 
   <div class="row row--flexless">
     <mat-label>
+      <div class="question-number">16</div>
       Você participou de algum congresso no exterior? Se sim, indicar local e se
       houve apresentação de trabalho.
     </mat-label>
     <br><br>
-    <mat-form-field class="input-long" appearance="standard">
+    <mat-form-field ngDefaultControl [(ngModel)]="congressoExterior" class="input-long" appearance="standard">
       <mat-label>Digite aqui</mat-label>
       <textarea matInput placeholder="Digite aqui."></textarea>
     </mat-form-field>
@@ -256,11 +264,12 @@
 
   <div class="row row--flexless">
     <mat-label>
+      <div class="question-number">17</div>
       Você realizou algum estágio de pesquisa ou visita de pesquisa no exterior
       (incluindo sanduíche)? Se sim, indique o nome da universidade e o período.
     </mat-label>
     <br><br>
-    <mat-form-field class="input-long" appearance="standard">
+    <mat-form-field ngDefaultControl [(ngModel)]="visitaPesquisa" class="input-long" appearance="standard">
       <mat-label>Digite aqui</mat-label>
       <textarea matInput placeholder="Digite aqui."></textarea>
     </mat-form-field>
@@ -268,16 +277,43 @@
 
   <div class="row row--flexless">
     <mat-label>
+      <div class="question-number">18</div>
       Você tem algo a mais a declarar para a CCP - PPgSI?
     </mat-label>
     <br><br>
-    <mat-form-field class="input-long" appearance="standard">
+    <mat-form-field ngDefaultControl [(ngModel)]="declaracaoExtra" class="input-long" appearance="standard">
       <mat-label>Digite aqui</mat-label>
       <textarea matInput placeholder="Digite aqui."></textarea>
     </mat-form-field>
   </div>
+
+  <div>
+    <ul>
+      <li>{{curso}} <span style="opacity: 0.7">curso</span></li>
+      <li>{{ultimoSemestreMestrado}} <span style="opacity: 0.7">ultimoSemestreMestrado</span></li>
+      <li>{{ultimoSemestreDoutorado}} <span style="opacity: 0.7">ultimoSemestreDoutorado</span></li>
+      <li>{{disciplinasObrigatoriasAprovadas}} <span style="opacity: 0.7">disciplinasObrigatoriasAprovadas</span></li>
+      <li>{{disciplinasOptativasAprovadas}} <span style="opacity: 0.7">disciplinasOptativasAprovadas</span></li>
+      <li>{{conceitsDivulgadosUltimoSemestre}} <span style="opacity: 0.7">conceitsDivulgadosUltimoSemestre</span></li>
+      <li>{{reprovacoesTotais}} <span style="opacity: 0.7">reprovacoesTotais</span></li>
+      <li>{{reprovacoesUltimoSemestre}} <span style="opacity: 0.7">reprovacoesUltimoSemestre</span></li>
+      <li>{{exameProficienciaIdiomas}} <span style="opacity: 0.7">exameProficienciaIdiomas</span></li>
+      <li>{{exameQualificacao}} <span style="opacity: 0.7">exameQualificacao</span></li>
+      <li>{{limiteQualificacao}} <span style="opacity: 0.7">limiteQualificacao</span></li>
+      <li>{{limiteDepositoDissertacao}} <span style="opacity: 0.7">limiteDepositoDissertacao</span></li>
+      <li>{{artigosPublicados}} <span style="opacity: 0.7">artigosPublicados</span></li>
+      <li>{{artigosAguardandoResposta}} <span style="opacity: 0.7">artigosAguardandoResposta</span></li>
+      <li>{{artigoPreparacao}} <span style="opacity: 0.7">artigoPreparacao</span></li>
+      <li>{{estagioPesquisa}} <span style="opacity: 0.7">estagioPesquisa</span></li>
+      <li>{{congressoPais}} <span style="opacity: 0.7">congressoPais</span></li>
+      <li>{{congressoExterior}} <span style="opacity: 0.7">congressoExterior</span></li>
+      <li>{{visitaPesquisa}} <span style="opacity: 0.7">visitaPesquisa</span></li>
+      <li>{{declaracaoExtra}} <span style="opacity: 0.7">declaracaoExtra</span></li>
+    </ul>
+  </div>
+
   <div class="row">
     <button style="margin-right: 8px;" mat-stroked-button color="primary">Cancelar</button>
-    <button mat-raised-button color="primary">Salvar Relatório</button>
+    <button (click)="logAll()" mat-raised-button color="primary">Salvar Relatório</button>
   </div>
 </div>

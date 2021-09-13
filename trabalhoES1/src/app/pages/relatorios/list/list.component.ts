@@ -8,10 +8,18 @@ import { UserDataServiceService } from 'src/app/services/userDataService/user-da
 })
 export class ListComponent implements OnInit {
 
-  constructor(private userData: UserDataServiceService) { }
+  public reports: any = [];
 
-  ngOnInit(): void {
-    console.log('this.userData.getUserData() =', this.userData.getUserData());
+  constructor(private userDataService: UserDataServiceService) { }
+
+  ngOnInit(): void { }
+
+  ngAfterViewInit(): void {
+    console.log('bla');
+    this.userDataService.userDataObservable.subscribe((data: any) => {
+      console.log('List of reports:', data.reports);
+      this.reports = data.reports;
+    });
   }
 
 }

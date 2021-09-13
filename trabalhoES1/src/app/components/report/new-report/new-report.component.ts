@@ -9,12 +9,51 @@ import { UserDataServiceService } from 'src/app/services/userDataService/user-da
 export class NewReportComponent implements OnInit {
 
   curso: any;
+  ultimoSemestreMestrado: any;
+  ultimoSemestreDoutorado: any;
+  disciplinasObrigatoriasAprovadas: any;
+  disciplinasOptativasAprovadas: any;
+  conceitsDivulgadosUltimoSemestre: any;
+  reprovacoesTotais: any;
+  reprovacoesUltimoSemestre: any;
+  exameProficienciaIdiomas: any;
+  exameQualificacao: any;
+  limiteQualificacao: any;
+  limiteDepositoDissertacao: any;
+  artigosPublicados: any;
+  artigosAguardandoResposta: any;
+  artigoPreparacao: any;
+  estagioPesquisa: any;
+  congressoPais: any;
+  congressoExterior: any;
+  visitaPesquisa: any;
+  declaracaoExtra: any;
 
-  constructor() { }
+  user: any;
 
-  ngOnInit(): void {
+  constructor(private userDataService : UserDataServiceService) { }
+
+  ngOnInit() { }
+
+  validate() {
+    // Estimado Heitor, valide cada campo (enumerados da linha 11 até a linha 30 ali em cima) com os validadores
+    // que você criou. Se todos forem válidos considerando alguns requisitos específicos, retorne true. Caso contrário
+    // lansa um false.
+
+    // ## REQUISITOS ##
+    // ultimoSemestreMestrado só precisa ser validado caso curso seja 1
+    // ultimoSemestreDoutorado só precisa ser validado caso curso seja 2
+    // limiteQualificacao só precisa ser validado caso exameQualificacao NÃO SEJA 1
+    // limiteDepositoDissertacao só precisa ser validado caso exameQualificacao seja 1
   }
-  
+
+  ngAfterViewInit() {
+    this.userDataService.userDataObservable.subscribe((data: any) => {
+      console.log('FANCY:', data);
+      this.user = data;
+    });
+  }
+
   checkNomeOrient(str:any): boolean {
     if(str != '') return true;
     else return false
