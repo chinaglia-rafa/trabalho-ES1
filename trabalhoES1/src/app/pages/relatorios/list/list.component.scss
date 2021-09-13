@@ -22,6 +22,7 @@
 .list-container mat-list {
   height: 100%;
   overflow: auto;
+  max-width: 600px;
 }
 
 .list-container .subheader {

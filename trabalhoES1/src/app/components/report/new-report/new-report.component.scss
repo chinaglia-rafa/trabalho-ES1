@@ -60,3 +60,23 @@ mat-radio-button {
 mat-divider {
   margin: 4px 0 16px 0;
 }
+
+.hide {
+  display: none;
+}
+
+.question-number {
+  display: inline-block;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 25px;
+  height: 25px;
+  width: 25px;
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.8em;
+}
+
+.question-number.disabled {
+  background: rgba(0, 0, 0, 0.38);
+}
