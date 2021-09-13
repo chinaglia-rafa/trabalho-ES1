@@ -39,6 +39,27 @@ export class NewReportComponent implements OnInit {
     // Estimado Heitor, valide cada campo (enumerados da linha 11 até a linha 30 ali em cima) com os validadores
     // que você criou. Se todos forem válidos considerando alguns requisitos específicos, retorne true. Caso contrário
     // lansa um false.
+    
+    if(!this.checkPosGrad(this.curso)) return false;
+    if(this.curso == 1) if(!this.checkSemestreMestrado(this.ultimoSemestreMestrado)) return false;
+    else if(this.curso == 2)  if(!this.checkSemestreDoutorado(this.ultimoSemestreDoutorado)) return false;
+    if(!this.checkDiscAprov(this.disciplinasObrigatoriasAprovadas)) return false;
+    if(!this.checkDiscAprov(this.disciplinasOptativasAprovadas)) return false;
+    if(!this.checkBool(this.conceitsDivulgadosUltimoSemestre)) return false;
+    if(!this.checkReprovasTotal(this.reprovacoesTotais)) return false;
+    if(!this.checkReprovasUltSem(this.reprovacoesUltimoSemestre)) return false;
+    if(!this.checkAprovProfIdiomas(this.exameProficienciaIdiomas)) return false;
+    if(!this.checkAprovExamQualifi(this.exameQualificacao)) return false;
+    if(this.exameQualificacao != 1) if(!this.checkTempoRestanteExamQualif(this.limiteQualificacao)) return false;
+    else if(this.exameQualificacao == 1) if(!this.checkTempoMaxDissert(this.limiteDepositoDissertacao)) return false;
+    if(!this.checkQtdArtigosAceitos(this.artigosPublicados)) return false;
+    if(!this.checkQtdArtigosEspera(this.artigosAguardandoResposta)) return false;
+    if(!this.checkArtigoPrep(this.artigoPreparacao)) return false;
+    if(!this.checkParagrafo(this.estagioPesquisa)) return false;
+    if(!this.checkParagrafo(this.congressoPais)) return false;
+    if(!this.checkParagrafo(this.congressoExterior)) return false;
+    if(!this.checkParagrafo(this.visitaPesquisa)) return false;
+    if(!this.checkParagrafo(this.declaracaoExtra)) return false;
 
     // ## REQUISITOS ##
     // ultimoSemestreMestrado só precisa ser validado caso curso seja 1
@@ -63,11 +84,7 @@ export class NewReportComponent implements OnInit {
     });
   }
 
-  checkNomeOrient(str:any): boolean {
-    if(str != '') return true;
-    else return false
-  }
-  checkNumeroUSP(num:any): boolean {
+  /*checkNumeroUSP(num:any): boolean {
     if(typeof num === 'number' && num.toString.length > 4) return true;
     else return false;
   }
@@ -87,9 +104,9 @@ export class NewReportComponent implements OnInit {
   checkAvaLast(num:any): boolean{
     if(num>=0 && num<=3) return true;
     else return false;
-  }
-  isMestrado(num:any): boolean{
-    if(num == 0) return true;
+  }*/
+  checkPosGrad(num:any): boolean{
+    if(num > 0 && num < 3) return true;
     else return false;
   }
   checkSemestreMestrado(num:any): boolean{
