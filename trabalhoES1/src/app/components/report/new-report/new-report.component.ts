@@ -45,6 +45,15 @@ export class NewReportComponent implements OnInit {
     // ultimoSemestreDoutorado só precisa ser validado caso curso seja 2
     // limiteQualificacao só precisa ser validado caso exameQualificacao NÃO SEJA 1
     // limiteDepositoDissertacao só precisa ser validado caso exameQualificacao seja 1
+
+    return true;
+  }
+
+  submit() {
+    if (!this.validate()) return false;
+    console.log('Salvando dados bem aqui...');
+
+    return true;
   }
 
   ngAfterViewInit() {
