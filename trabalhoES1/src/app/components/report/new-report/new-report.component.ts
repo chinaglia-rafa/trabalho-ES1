@@ -13,7 +13,7 @@ export class NewReportComponent implements OnInit {
   ultimoSemestreDoutorado: any;
   disciplinasObrigatoriasAprovadas: any;
   disciplinasOptativasAprovadas: any;
-  conceitsDivulgadosUltimoSemestre: any;
+  conceitosDivulgadosUltimoSemestre: any;
   reprovacoesTotais: any;
   reprovacoesUltimoSemestre: any;
   exameProficienciaIdiomas: any;
@@ -39,33 +39,87 @@ export class NewReportComponent implements OnInit {
     // Estimado Heitor, valide cada campo (enumerados da linha 11 até a linha 30 ali em cima) com os validadores
     // que você criou. Se todos forem válidos considerando alguns requisitos específicos, retorne true. Caso contrário
     // lansa um false.
-    
-    if(!this.checkPosGrad(this.curso)) return false;
-    if(this.curso == 1) if(!this.checkSemestreMestrado(this.ultimoSemestreMestrado)) return false;
-    else if(this.curso == 2)  if(!this.checkSemestreDoutorado(this.ultimoSemestreDoutorado)) return false;
-    if(!this.checkDiscAprov(this.disciplinasObrigatoriasAprovadas)) return false;
-    if(!this.checkDiscAprov(this.disciplinasOptativasAprovadas)) return false;
-    if(!this.checkBool(this.conceitsDivulgadosUltimoSemestre)) return false;
-    if(!this.checkReprovasTotal(this.reprovacoesTotais)) return false;
-    if(!this.checkReprovasUltSem(this.reprovacoesUltimoSemestre)) return false;
-    if(!this.checkAprovProfIdiomas(this.exameProficienciaIdiomas)) return false;
-    if(!this.checkAprovExamQualifi(this.exameQualificacao)) return false;
-    if(this.exameQualificacao != 1) if(!this.checkTempoRestanteExamQualif(this.limiteQualificacao)) return false;
-    else if(this.exameQualificacao == 1) if(!this.checkTempoMaxDissert(this.limiteDepositoDissertacao)) return false;
-    if(!this.checkQtdArtigosAceitos(this.artigosPublicados)) return false;
-    if(!this.checkQtdArtigosEspera(this.artigosAguardandoResposta)) return false;
-    if(!this.checkArtigoPrep(this.artigoPreparacao)) return false;
-    if(!this.checkParagrafo(this.estagioPesquisa)) return false;
-    if(!this.checkParagrafo(this.congressoPais)) return false;
-    if(!this.checkParagrafo(this.congressoExterior)) return false;
-    if(!this.checkParagrafo(this.visitaPesquisa)) return false;
-    if(!this.checkParagrafo(this.declaracaoExtra)) return false;
 
-    // ## REQUISITOS ##
-    // ultimoSemestreMestrado só precisa ser validado caso curso seja 1
-    // ultimoSemestreDoutorado só precisa ser validado caso curso seja 2
-    // limiteQualificacao só precisa ser validado caso exameQualificacao NÃO SEJA 1
-    // limiteDepositoDissertacao só precisa ser validado caso exameQualificacao seja 1
+    if(!this.checkPosGrad(this.curso)) {
+      console.log('Campo curso não passou na validação', this.curso);
+      return false;
+    }
+    if(this.curso == 1 && !this.checkSemestreMestrado(this.ultimoSemestreMestrado)) {
+      console.log('Campo ultimoSemestreMestrado não passou na validação', this.ultimoSemestreMestrado);
+      return false;
+    } else if(this.curso == 2 && !this.checkSemestreDoutorado(this.ultimoSemestreDoutorado)) {
+      console.log('Campo ultimoSemestreDoutorado não passou na validação', this.ultimoSemestreDoutorado);
+      return false;
+    }
+    if(!this.checkDiscAprov(this.disciplinasObrigatoriasAprovadas)) {
+      console.log('Campo disciplinasObrigatoriasAprovadas não passou na validação', this.disciplinasObrigatoriasAprovadas);
+      return false;
+    }
+    if(!this.checkDiscAprov(this.disciplinasOptativasAprovadas)) {
+      console.log('Campo disciplinasOptativasAprovadas não passou na validação', this.disciplinasOptativasAprovadas);
+      return false;
+    }
+    if(!this.checkBool(this.conceitosDivulgadosUltimoSemestre)) {
+      console.log('Campo conceitosDivulgadosUltimoSemestre não passou na validação', this.conceitosDivulgadosUltimoSemestre);
+      return false;
+    }
+    if(!this.checkReprovasTotal(this.reprovacoesTotais)) {
+      console.log('Campo reprovacoesTotais não passou na validação', this.reprovacoesTotais);
+      return false;
+    }
+    if(!this.checkReprovasUltSem(this.reprovacoesUltimoSemestre)) {
+      console.log('Campo reprovacoesUltimoSemestre não passou na validação', this.reprovacoesUltimoSemestre);
+      return false;
+    }
+    if(!this.checkAprovProfIdiomas(this.exameProficienciaIdiomas)) {
+      console.log('Campo exameProficienciaIdiomas não passou na validação', this.exameProficienciaIdiomas);
+      return false;
+    }
+    if(!this.checkAprovExamQualifi(this.exameQualificacao)) {
+      console.log('Campo exameQualificacao não passou na validação', this.exameQualificacao);
+      return false;
+    }
+    if(this.exameQualificacao != 1 && !this.checkTempoRestanteExamQualif(this.limiteQualificacao)) {
+      console.log('Campo limiteQualificacao não passou na validação', this.limiteQualificacao);
+      return false;
+    } else if(this.exameQualificacao == 1 && !this.checkTempoMaxDissert(this.limiteDepositoDissertacao)) {
+      console.log('Campo limiteDepositoDissertacao não passou na validação', this.limiteDepositoDissertacao);
+      return false;
+    }
+    if(!this.checkQtdArtigosAceitos(this.artigosPublicados)) {
+      console.log('Campo artigosPublicados não passou na validação', this.artigosPublicados);
+      return false;
+    }
+    if(!this.checkQtdArtigosEspera(this.artigosAguardandoResposta)) {
+      console.log('Campo artigosAguardandoResposta não passou na validação', this.artigosAguardandoResposta);
+      return false;
+    }
+    if(!this.checkArtigoPrep(this.artigoPreparacao)) {
+      console.log('Campo artigoPreparacao não passou na validação', this.artigoPreparacao);
+      return false;
+    }
+    if(!this.checkParagrafo(this.estagioPesquisa)) {
+      console.log('Campo estagioPesquisa não passou na validação', this.estagioPesquisa);
+      return false;
+    }
+    if(!this.checkParagrafo(this.congressoPais)) {
+      console.log('Campo congressoPais não passou na validação', this.congressoPais);
+      return false;
+    }
+    if(!this.checkParagrafo(this.congressoExterior)) {
+      console.log('Campo congressoExterior não passou na validação', this.congressoExterior);
+      return false;
+    }
+    if(!this.checkParagrafo(this.visitaPesquisa)) {
+      console.log('Campo visitaPesquisa não passou na validação', this.visitaPesquisa);
+      return false;
+    }
+    if(!this.checkParagrafo(this.declaracaoExtra)) {
+      console.log('Campo declaracaoExtra não passou na validação', this.declaracaoExtra);
+      return false;
+    }
+
+    console.log('All set.');
 
     return true;
   }
@@ -73,6 +127,8 @@ export class NewReportComponent implements OnInit {
   submit() {
     if (!this.validate()) return false;
     console.log('Salvando dados bem aqui...');
+
+    
 
     return true;
   }
@@ -118,7 +174,7 @@ export class NewReportComponent implements OnInit {
     else return false;
   }
   checkDiscAprov(num:any): boolean{
-    if(typeof num === 'number' && num>0) return true;
+    if(num == parseInt(num) && num>=0) return true;
     else return false;
   }
   checkBool(num:any): boolean{
@@ -134,8 +190,8 @@ export class NewReportComponent implements OnInit {
     return false;
   }
   checkAprovProfIdiomas(num:any): boolean{
-    if(num===true || num===false) return true;
-    else return true;
+    if(num==1 || num==0) return true;
+    return false;
   }
   checkAprovExamQualifi(num:any): boolean{
     if(num>=0 || num<=2) return true;
@@ -162,7 +218,7 @@ export class NewReportComponent implements OnInit {
     else return false;
   }
   checkParagrafo(str:any): boolean{
-    if(str != '') return true;
+    if(str && str != '') return true;
     return false;
   }
 }
