@@ -25,9 +25,9 @@ export class UserDataServiceService {
 
     let responseClient : any = await this.getUserDataFromDB(data);
     let responseLeader : any = {}, finalResult : any = {};
-    let responseReports : any = {};
+    let responseReports : any = {}, innerStudentResponse : any = {};
 
-    console.log("data set userdata: ",data);
+    //console.log("data set userdata: ",data);
 
     // console.log("responseClient: ",responseClient)
     if(responseClient != null)
@@ -40,7 +40,38 @@ export class UserDataServiceService {
         finalResult = {...responseClient, "leader" : responseLeader, "reports" : responseReports};
       }
       else{
-        finalResult = responseLeader;
+
+        responseReports =  this.getReportsFromDBLeaderVersion(data.user.uid);
+
+        // responseReports.then((item: any) =>{
+        //   console.log("item: ", item);
+        // })
+        
+        if(responseReports != null){
+          console.log("entrou no if: ", responseReports);
+
+          
+          responseReports.map((item : any) =>{
+            let dummyData : any = {"data" : {}, "user" : {"name" : "dummy", "uid" : item.studentOwnerCode}};
+            innerStudentResponse =  this.getUserDataFromDB(dummyData);
+            console.log("entrou no map")
+            if(innerStudentResponse != null)
+            {
+              item = {...item, "student" : innerStudentResponse}
+            }
+            else{
+              // console.log("caiu no else")
+              item = item;
+            }
+            
+          })
+
+          // responseReports.then((item : any) => {
+          //   console.log("item: ", item);
+          // })
+          // console.log("response reports: ",responseReports);
+        }
+        finalResult = {...responseClient, "reports" : {responseReports}};
       }
 
     }
@@ -62,7 +93,7 @@ export class UserDataServiceService {
   async getReportsFromDB(userID : string)
   {
     let dataResponse: any = [];
-    console.log("user ID: ",userID);
+    //console.log("user ID: ",userID);
     let response = await this.db.collection("reports",  ref => ref.where('studentOwnerCode', '==', userID)).valueChanges().subscribe(data => {
       data.map((item, index) =>{
         dataResponse[index] = data[index];
@@ -70,7 +101,17 @@ export class UserDataServiceService {
     })
     return dataResponse;
   }
-
+  getReportsFromDBLeaderVersion(userID : string)
+  {
+    let dataResponse: any = [];
+    //console.log("user ID: ",userID);
+    let response = this.db.collection("reports",  ref => ref.where('leaderCode', '==', userID)).valueChanges().subscribe(data => {
+      data.map((item, index) =>{
+        dataResponse[index] = data[index];
+      })
+    })
+    return dataResponse;
+  }
   async getLeaderDataFromDB(leaderID : string)
   {
     const response =  (await this.db.firestore.collection("userData").doc(leaderID).get()).data();
