@@ -34,43 +34,44 @@ export class UserDataServiceService {
       }
       else{
 
-        responseReports =  this.getReportsFromDBLeaderVersion(data.user.uid);
-
-        // responseReports.then((item: any) =>{
-        //   console.log("item: ", item);
-        // })
-        
-        if(responseReports != null){
-          console.log("entrou no if: ", responseReports);
-
-          
-          responseReports.map((item : any) =>{
+        responseReports = this.getReportsFromDBLeaderVersion(data.user.uid);
+        let carretinha : any = [];
+        let newReports : any = [];
+        responseReports.then((elem: any) =>{
+          console.log("elem: ", elem);
+          elem.map((item : any) =>{
             let dummyData : any = {"data" : {}, "user" : {"name" : "dummy", "uid" : item.studentOwnerCode}};
-            innerStudentResponse =  this.getUserDataFromDB(dummyData);
-            console.log("entrou no map")
-            if(innerStudentResponse != null)
-            {
-              item = {...item, "student" : innerStudentResponse}
-            }
-            else{
-              // console.log("caiu no else")
-              item = item;
-            }
             
+            
+            innerStudentResponse =  this.getUserDataFromDB(dummyData);
+            carretinha.push(innerStudentResponse);
+            innerStudentResponse.then((i:any) => {
+              console.log("i: ", i);
+              if(i != null)
+              {
+                newReports.push( {...item, "student" : i})
+              }
+              else{
+                newReports.push(item);
+              }
+              
+            })
           })
-
-          // responseReports.then((item : any) => {
-          //   console.log("item: ", item);
-          // })
-          // console.log("response reports: ",responseReports);
-        }
-        finalResult = {...responseClient, "reports" : {responseReports}};
+          Promise.all(carretinha).then((e) =>{
+            finalResult = {...responseClient, "reports" : newReports};
+            console.log("finalResult: ",finalResult);
+          })
+          
+        })
+        
+        
+        
       }
       
     }
     
     // console.log("leader: ", responseClient.leader.data())
-    console.log("finalResult: ",finalResult);
+    
 
     localStorage.setItem('user', btoa(JSON.stringify(data)));
 
@@ -95,14 +96,18 @@ export class UserDataServiceService {
   }
   getReportsFromDBLeaderVersion(userID : string)
   {
-    let dataResponse: any = [];
-    //console.log("user ID: ",userID);
-    let response = this.db.collection("reports",  ref => ref.where('leaderCode', '==', userID)).valueChanges().subscribe(data => {
-      data.map((item, index) =>{
-        dataResponse[index] = data[index];
+    return new Promise((resolve, reject) => {
+      let dataResponse: any = [];
+      //console.log("user ID: ",userID);
+      let response = this.db.collection("reports",  ref => ref.where('leaderCode', '==', userID)).valueChanges().subscribe(data => {
+        data.map((item, index) =>{
+          dataResponse[index] = data[index];
+        })
+        resolve(dataResponse);
       })
+      
     })
-    return dataResponse;
+    
   }
   async getLeaderDataFromDB(leaderID : string)
   {
