@@ -3,13 +3,13 @@
     <p>
         <mat-form-field appearance="standard" class="formulario">
             <mat-label>e-mail</mat-label>
-            <input matInput placeholder="endereço@dominio.com" [formControl]="email" required>
+            <input matInput value="chinaglia.rafa@gmail.com" placeholder="endereço@dominio.com" [formControl]="email" required>
             <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
         <br>
         <mat-form-field appearance="standard" class="formulario">
             <mat-label>senha</mat-label>
-            <input type="password" matInput [formControl]="senha" placeholder="senha">
+            <input type="password" value="123456" matInput [formControl]="senha" placeholder="senha">
         </mat-form-field>
         <br>
         <button color="primary" mat-raised-button (click)="logIn()" class="acesso">Acesssar</button>

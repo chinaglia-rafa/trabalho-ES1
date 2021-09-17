@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserDataServiceService } from 'src/app/services/userDataService/user-data-service.service';
 
 @Component({
   selector: 'app-list',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  constructor() { }
+  public reports: any = [];
 
-  ngOnInit(): void {
+  constructor(private userDataService: UserDataServiceService) { }
+
+  ngOnInit(): void { }
+
+  ngAfterViewInit(): void {
+    console.log('bla');
+    this.userDataService.userDataObservable.subscribe((data: any) => {
+      console.log('List of reports:', data.reports);
+      this.reports = data.reports;
+    });
   }
 
 }
