@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { UserDataServiceService } from 'src/app/services/userDataService/user-data-service.service';
 
 @Component({
@@ -31,7 +33,11 @@ export class NewReportComponent implements OnInit {
 
   user: any;
 
-  constructor(private userDataService : UserDataServiceService) { }
+  constructor(
+    private userDataService : UserDataServiceService,
+    private router: Router,
+    private snackbar: MatSnackBar,
+  ) { }
 
   ngOnInit() { }
 
@@ -128,7 +134,50 @@ export class NewReportComponent implements OnInit {
     if (!this.validate()) return false;
     console.log('Salvando dados bem aqui...');
 
-    
+    const data = new Date();
+    let s = 1;
+    if (data.getMonth() >= 6) s = 2;
+    const semester = `${data.getFullYear()}-${s}`
+
+    const newReport = {
+      semester: semester,
+      courseLevel: this.curso,
+      lattes: this.user.lattesLink,
+      leaderCode: this.user.leaderID,
+      answers: {
+        ultimoSemestreMestrado: this.ultimoSemestreMestrado,
+        ultimoSemestreDoutorado: this.ultimoSemestreDoutorado,
+        disciplinasObrigatoriasAprovadas: this.disciplinasObrigatoriasAprovadas,
+        disciplinasOptativasAprovadas: this.disciplinasOptativasAprovadas,
+        conceitosDivulgadosUltimoSemestre: this.conceitosDivulgadosUltimoSemestre,
+        reprovacoesTotais: this.reprovacoesTotais,
+        reprovacoesUltimoSemestre: this.reprovacoesUltimoSemestre,
+        exameProficienciaIdiomas: this.exameProficienciaIdiomas,
+        exameQualificacao: this.exameQualificacao,
+        limiteQualificacao: this.limiteQualificacao,
+        limiteDepositoDissertacao: this.limiteDepositoDissertacao,
+        artigosPublicados: this.artigosPublicados,
+        artigosAguardandoResposta: this.artigosAguardandoResposta,
+        artigoPreparacao: this.artigoPreparacao,
+        estagioPesquisa: this.estagioPesquisa,
+        congressoPais: this.congressoPais,
+        congressoExterior: this.congressoExterior,
+        visitaPesquisa: this.visitaPesquisa,
+        declaracaoExtra: this.declaracaoExtra,
+      }
+    }
+
+    console.log('Data to be saved:', newReport);
+
+    // Mills, aqui está o objeto com os dados que eu tenho! Crie uma função no serviço pra completar os que faltam
+    // e grave o novo relatório *CASO NÃO HAJA UM COM O MESMO SEMESTER JÁ GRAVADO* pra evitar problemas de alunos
+    // mandando vários relatórios pro mesmo semestre
+
+
+    this.snackbar.open(`Novo relatório para o semestre ${semester} enviado com sucesso!`, 'Okay', {
+      duration: 3000
+    });
+    this.router.navigateByUrl('/relatorios/list', {replaceUrl: true});
 
     return true;
   }
