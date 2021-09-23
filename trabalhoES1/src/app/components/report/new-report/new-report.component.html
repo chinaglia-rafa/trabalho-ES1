@@ -105,7 +105,7 @@
       Caso não, espere até 2 dias antes da data máxima definida no site do PPgSI para enviar o seu relatório.
     </mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="conceitsDivulgadosUltimoSemestre" aria-label="Selecione uma opção">
+    <mat-radio-group ngDefaultControl [(ngModel)]="conceitosDivulgadosUltimoSemestre" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Sim</mat-radio-button>
       <mat-radio-button color="primary" value="2">Não</mat-radio-button>
     </mat-radio-group>
@@ -136,7 +136,7 @@
     <br><br>
     <mat-radio-group ngDefaultControl [(ngModel)]="exameProficienciaIdiomas" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Sim</mat-radio-button>
-      <mat-radio-button color="primary" value="2">Não</mat-radio-button>
+      <mat-radio-button color="primary" value="0">Não</mat-radio-button>
     </mat-radio-group>
   </div>
 
@@ -294,7 +294,7 @@
       <li>{{ultimoSemestreDoutorado}} <span style="opacity: 0.7">ultimoSemestreDoutorado</span></li>
       <li>{{disciplinasObrigatoriasAprovadas}} <span style="opacity: 0.7">disciplinasObrigatoriasAprovadas</span></li>
       <li>{{disciplinasOptativasAprovadas}} <span style="opacity: 0.7">disciplinasOptativasAprovadas</span></li>
-      <li>{{conceitsDivulgadosUltimoSemestre}} <span style="opacity: 0.7">conceitsDivulgadosUltimoSemestre</span></li>
+      <li>{{conceitosDivulgadosUltimoSemestre}} <span style="opacity: 0.7">conceitosDivulgadosUltimoSemestre</span></li>
       <li>{{reprovacoesTotais}} <span style="opacity: 0.7">reprovacoesTotais</span></li>
       <li>{{reprovacoesUltimoSemestre}} <span style="opacity: 0.7">reprovacoesUltimoSemestre</span></li>
       <li>{{exameProficienciaIdiomas}} <span style="opacity: 0.7">exameProficienciaIdiomas</span></li>
