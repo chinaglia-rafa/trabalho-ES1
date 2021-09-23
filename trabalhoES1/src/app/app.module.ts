@@ -26,6 +26,7 @@ import { ListComponent } from './pages/relatorios/list/list.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatRadioModule,
     MatSelectModule,
     MatDividerModule,
+    MatSnackBarModule,
 
     MatFormFieldModule,
     ReactiveFormsModule,
