@@ -27,10 +27,10 @@ export class UserDataServiceService {
     let responseLeader : any = {}, finalResult : any = {};
     let responseReports : any = {}, innerStudentResponse : any = {};
 
-    //console.log("data set userdata: ",data);
+    console.log("data set userdata: ",data);
 
-    // console.log("responseClient: ",responseClient)
-    if(responseClient != null)
+    console.log("responseClient: ",responseClient)
+    if(true)
     {
       if(responseClient.type == "aluno")
       {
@@ -79,7 +79,7 @@ export class UserDataServiceService {
 
 
     
-
+    console.log("finalResult: ",finalResult);
 
     localStorage.setItem('user', btoa(JSON.stringify(data)));
 

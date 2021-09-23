@@ -78,10 +78,11 @@ export class NewReportComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.userDataService.userDataObservable.subscribe((data: any) => {
-      console.log('FANCY:', data);
-      this.user = data;
-    });
+    // this.userDataService.userDataObservable.subscribe((data: any) => {
+    //   console.log('FANCY:', data);
+    //   this.user = data;
+    // });
+    this.user = this.userDataService.getUserData()
   }
 
   /*checkNumeroUSP(num:any): boolean {
