@@ -10,26 +10,26 @@ import { UserDataServiceService } from 'src/app/services/userDataService/user-da
 })
 export class NewReportComponent implements OnInit {
 
-  curso: any;
-  ultimoSemestreMestrado: any;
-  ultimoSemestreDoutorado: any;
-  disciplinasObrigatoriasAprovadas: any;
-  disciplinasOptativasAprovadas: any;
-  conceitosDivulgadosUltimoSemestre: any;
-  reprovacoesTotais: any;
-  reprovacoesUltimoSemestre: any;
-  exameProficienciaIdiomas: any;
-  exameQualificacao: any;
-  limiteQualificacao: any;
-  limiteDepositoDissertacao: any;
-  artigosPublicados: any;
-  artigosAguardandoResposta: any;
-  artigoPreparacao: any;
-  estagioPesquisa: any;
-  congressoPais: any;
-  congressoExterior: any;
-  visitaPesquisa: any;
-  declaracaoExtra: any;
+  curso: any = "";
+  ultimoSemestreMestrado: any = "";
+  ultimoSemestreDoutorado: any = "";
+  disciplinasObrigatoriasAprovadas: any = "";
+  disciplinasOptativasAprovadas: any = "";
+  conceitosDivulgadosUltimoSemestre: any = "";
+  reprovacoesTotais: any = "";
+  reprovacoesUltimoSemestre: any = "";
+  exameProficienciaIdiomas: any = "";
+  exameQualificacao: any = "";
+  limiteQualificacao: any = "";
+  limiteDepositoDissertacao: any = "";
+  artigosPublicados: any = "";
+  artigosAguardandoResposta: any = "";
+  artigoPreparacao: any = "";
+  estagioPesquisa: any = "";
+  congressoPais: any = "";
+  congressoExterior: any = "";
+  visitaPesquisa: any = "";
+  declaracaoExtra: any = "";
 
   user: any;
 
@@ -168,7 +168,7 @@ export class NewReportComponent implements OnInit {
     }
 
     console.log('Data to be saved:', newReport);
-
+    this.userDataService.setNewReport(newReport);
     // Mills, aqui está o objeto com os dados que eu tenho! Crie uma função no serviço pra completar os que faltam
     // e grave o novo relatório *CASO NÃO HAJA UM COM O MESMO SEMESTER JÁ GRAVADO* pra evitar problemas de alunos
     // mandando vários relatórios pro mesmo semestre

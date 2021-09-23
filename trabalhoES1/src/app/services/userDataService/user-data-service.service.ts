@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-
+declare var require: any
 @Injectable({
   providedIn: 'root'
 })
 export class UserDataServiceService {
-
+  
   private userData: any = {};
   private userReports : any = [];
   /** Emite dados para subscribes desta variável com os dados de usuário */
   public userDataObservable = new BehaviorSubject({});
+
+  private keygen = require("keygenerator");
 
 
   constructor(
@@ -21,6 +23,7 @@ export class UserDataServiceService {
     this.init();
   }
 
+  
   async setUserData(data : any){
 
     let responseClient : any = await this.getUserDataFromDB(data);
@@ -90,7 +93,16 @@ export class UserDataServiceService {
 
     return response;
   }
+  setNewReport(data : any){
+    
+    const key = this.keygen.session_id();
 
+    this.db.collection("reports").doc(key).set(data).then((e) => {
+      console.log("deu certo", e);
+    }).catch((res) => {
+      console.log("res: ", res)
+    })
+  }
   async getReportsFromDB(userID : string)
   {
     let dataResponse: any = [];
