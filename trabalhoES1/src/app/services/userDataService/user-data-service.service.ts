@@ -9,6 +9,7 @@ declare var require: any
 export class UserDataServiceService {
   
   private userData: any = {};
+  private userUID: any ={};
   private userReports : any = [];
   /** Emite dados para subscribes desta variável com os dados de usuário */
   public userDataObservable = new BehaviorSubject({});
@@ -88,9 +89,13 @@ export class UserDataServiceService {
 
     this.userData = finalResult;
   }
+  getUserUID(){
+
+    return this.userUID;
+  }
   async getUserDataFromDB(data: any){
     const response =  (await this.db.firestore.collection("userData").doc(data.user.uid).get()).data();
-
+    this.userUID = data.user.uid;
     return response;
   }
   setNewReport(data : any){
