@@ -10,26 +10,26 @@ import { UserDataServiceService } from 'src/app/services/userDataService/user-da
 })
 export class NewReportComponent implements OnInit {
 
-  curso: any;
-  ultimoSemestreMestrado: any;
-  ultimoSemestreDoutorado: any;
-  disciplinasObrigatoriasAprovadas: any;
-  disciplinasOptativasAprovadas: any;
-  conceitosDivulgadosUltimoSemestre: any;
-  reprovacoesTotais: any;
-  reprovacoesUltimoSemestre: any;
-  exameProficienciaIdiomas: any;
-  exameQualificacao: any;
-  limiteQualificacao: any;
-  limiteDepositoDissertacao: any;
-  artigosPublicados: any;
-  artigosAguardandoResposta: any;
-  artigoPreparacao: any;
-  estagioPesquisa: any;
-  congressoPais: any;
-  congressoExterior: any;
-  visitaPesquisa: any;
-  declaracaoExtra: any;
+  curso: any = "";
+  ultimoSemestreMestrado: any = "";
+  ultimoSemestreDoutorado: any = "";
+  disciplinasObrigatoriasAprovadas: any = "";
+  disciplinasOptativasAprovadas: any = "";
+  conceitosDivulgadosUltimoSemestre: any = "";
+  reprovacoesTotais: any = "";
+  reprovacoesUltimoSemestre: any = "";
+  exameProficienciaIdiomas: any = "";
+  exameQualificacao: any = "";
+  limiteQualificacao: any = "";
+  limiteDepositoDissertacao: any = "";
+  artigosPublicados: any = "";
+  artigosAguardandoResposta: any = "";
+  artigoPreparacao: any = "";
+  estagioPesquisa: any = "";
+  congressoPais: any = "";
+  congressoExterior: any = "";
+  visitaPesquisa: any = "";
+  declaracaoExtra: any = "";
 
   user: any;
 
@@ -39,7 +39,10 @@ export class NewReportComponent implements OnInit {
     private snackbar: MatSnackBar,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+
+    
+  }
 
   validate() {
     // Estimado Heitor, valide cada campo (enumerados da linha 11 até a linha 30 ali em cima) com os validadores
@@ -133,7 +136,7 @@ export class NewReportComponent implements OnInit {
   submit() {
     if (!this.validate()) return false;
     console.log('Salvando dados bem aqui...');
-
+    const userUID = this.userDataService.getUserUID();
     const data = new Date();
     let s = 1;
     if (data.getMonth() >= 6) s = 2;
@@ -142,6 +145,7 @@ export class NewReportComponent implements OnInit {
     const newReport = {
       semester: semester,
       courseLevel: this.curso,
+      studentOwnerCode: userUID,
       lattes: this.user.lattesLink,
       leaderCode: this.user.leaderID,
       answers: {
@@ -169,6 +173,16 @@ export class NewReportComponent implements OnInit {
 
     console.log('Data to be saved:', newReport);
 
+    
+    if(this.isAbletoSave())
+    {
+      this.userDataService.setNewReport(newReport);
+    }
+    else{
+      alert("você já enviou um relatório esse semestre")
+      return;
+    }
+    
     // Mills, aqui está o objeto com os dados que eu tenho! Crie uma função no serviço pra completar os que faltam
     // e grave o novo relatório *CASO NÃO HAJA UM COM O MESMO SEMESTER JÁ GRAVADO* pra evitar problemas de alunos
     // mandando vários relatórios pro mesmo semestre
@@ -181,13 +195,30 @@ export class NewReportComponent implements OnInit {
 
     return true;
   }
+  isAbletoSave(){
+    const data = new Date();
+    let s = 1;
+    if (data.getMonth() >= 6) s = 2;
+    const semester = `${data.getFullYear()}-${s}`
+    const reports = this.user.reports;
 
+    for (let i = 0; i < reports.length; i++) {
+      
+      if(reports[i].semester == semester){
+        return false;
+      }
+      
+    }
+
+    return true
+  }
   ngAfterViewInit() {
     // this.userDataService.userDataObservable.subscribe((data: any) => {
     //   console.log('FANCY:', data);
     //   this.user = data;
     // });
     this.user = this.userDataService.getUserData()
+    console.log("this.user: " ,this.user);
   }
 
   /*checkNumeroUSP(num:any): boolean {
