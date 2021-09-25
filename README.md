@@ -9,3 +9,5 @@ Membros:
 <a href = "https://github.com/chinaglia-rafa/trabalho-ES1/graphs/contributors">
 <img src = "https://contrib.rocks/image?repo=chinaglia-rafa/trabalho-ES1"/>
 </a>
+
+<img src="https://img.shields.io/github/stars/chinaglia-rafa/trabalho-ES1"/> 
