@@ -1,0 +1,82 @@
+.intro {
+  padding: 16px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.intro table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.intro table tr td {
+  padding: 6px;
+  margin: 0;
+  border: 1px solid var(--color-primary);
+}
+
+.intro table tr td:nth-child(2) {
+  background: var(--color-primary);
+  color: white;
+}
+
+.form {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  min-width: 200px;
+  margin: 0 8px;
+}
+
+.input-long {
+  width: 250px;
+}
+
+.row {
+  display: flex;
+  width: 628px;
+  padding: 16px 0;
+}
+
+.row.row--flexless {
+  display: block;
+}
+
+mat-radio-group {
+  display: flex;
+  margin-right: 16px;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+mat-radio-button {
+  margin: 6px 16px;
+}
+
+mat-divider {
+  margin: 4px 0 16px 0;
+}
+
+.hide {
+  display: none;
+}
+
+.question-number {
+  display: inline-block;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 25px;
+  height: 25px;
+  width: 25px;
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.8em;
+}
+
+.question-number.disabled {
+  background: rgba(0, 0, 0, 0.38);
+}

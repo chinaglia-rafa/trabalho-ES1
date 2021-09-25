@@ -15,7 +15,6 @@ export class ListComponent implements OnInit {
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    console.log('bla');
     this.userDataService.userDataObservable.subscribe((data: any) => {
       console.log('List of reports:', data.reports);
       this.reports = data.reports;

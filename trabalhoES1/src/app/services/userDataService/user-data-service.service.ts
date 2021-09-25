@@ -7,7 +7,7 @@ declare var require: any
   providedIn: 'root'
 })
 export class UserDataServiceService {
-  
+
   private userData: any = {};
   private userUID: any ={};
   private userReports : any = [];
@@ -24,7 +24,7 @@ export class UserDataServiceService {
     this.init();
   }
 
-  
+
   async setUserData(data : any){
 
     let responseClient : any = await this.getUserDataFromDB(data);
@@ -34,7 +34,7 @@ export class UserDataServiceService {
     console.log("data set userdata: ",data);
 
     console.log("responseClient: ",responseClient)
-    if(true)
+    if(true) // refatorar
     {
       if(responseClient.type == "aluno")
       {
@@ -52,8 +52,8 @@ export class UserDataServiceService {
           console.log("elem: ", elem);
           elem.map((item : any) =>{
             let dummyData : any = {"data" : {}, "user" : {"name" : "dummy", "uid" : item.studentOwnerCode}};
-            
-            
+
+
             innerStudentResponse =  this.getUserDataFromDB(dummyData);
             carretinha.push(innerStudentResponse);
             innerStudentResponse.then((i:any) => {
@@ -65,28 +65,29 @@ export class UserDataServiceService {
               else{
                 newReports.push(item);
               }
-              
+
             })
           })
           Promise.all(carretinha).then((e) =>{
             finalResult = {...responseClient, "reports" : newReports};
             console.log("finalResult: ",finalResult);
           })
-          
+
         })
-        
-        
-        
+
+
+
       }
 
     }
 
 
-    
+
     console.log("finalResult: ",finalResult);
 
     localStorage.setItem('user', btoa(JSON.stringify(data)));
 
+    this.userDataObservable.next(finalResult);
     this.userData = finalResult;
   }
   getUserUID(){
@@ -99,7 +100,7 @@ export class UserDataServiceService {
     return response;
   }
   setNewReport(data : any){
-    
+
     const key = this.keygen.session_id();
 
     this.db.collection("reports").doc(key).set(data).then((e) => {
@@ -130,9 +131,9 @@ export class UserDataServiceService {
         })
         resolve(dataResponse);
       })
-      
+
     })
-    
+
   }
   async getLeaderDataFromDB(leaderID : string)
   {

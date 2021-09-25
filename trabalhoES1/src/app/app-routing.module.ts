@@ -5,6 +5,7 @@ import { NewReportComponent } from './components/report/new-report/new-report.co
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ListComponent } from './pages/relatorios/list/list.component';
+import { ViewComponent } from './pages/relatorios/view/view.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'relatorios/list', component: ListComponent },
+  { path: 'relatorios/view/:id', component: ViewComponent },
   { path: 'new-report', component: NewReportComponent },
 ];
 
