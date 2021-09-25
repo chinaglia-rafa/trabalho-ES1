@@ -10,4 +10,5 @@ Membros:
 <img src = "https://contrib.rocks/image?repo=chinaglia-rafa/trabalho-ES1"/>
 </a>
 
-<img src="https://img.shields.io/github/stars/chinaglia-rafa/trabalho-ES1"/> 
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=chinaglia-rafa&show_icons=true&theme=radical)
+
