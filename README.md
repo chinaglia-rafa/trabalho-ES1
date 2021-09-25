@@ -4,3 +4,11 @@ Membros:
   *Guilherme de Aguiar Pacianotto
   *Heitor Daniel Vani Gomes
   *Rafael Araújo Chinaglia
+  
+  <h2>Contribuidores: </h2>
+<a href = "https://github.com/chinaglia-rafa/trabalho-ES1/graphs/contributors">
+<img src = "https://contrib.rocks/image?repo=chinaglia-rafa/trabalho-ES1"/>
+</a>
+
+
+

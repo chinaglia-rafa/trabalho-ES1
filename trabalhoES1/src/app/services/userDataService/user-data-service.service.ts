@@ -103,6 +103,8 @@ export class UserDataServiceService {
 
     const key = this.keygen.session_id();
 
+    data.uid = key;
+
     this.db.collection("reports").doc(key).set(data).then((e) => {
       console.log("deu certo", e);
     }).catch((res) => {
@@ -116,6 +118,7 @@ export class UserDataServiceService {
     let response = await this.db.collection("reports",  ref => ref.where('studentOwnerCode', '==', userID)).valueChanges().subscribe(data => {
       data.map((item, index) =>{
         dataResponse[index] = data[index];
+        console.log("reports data: ",item);
       })
     })
     return dataResponse;
