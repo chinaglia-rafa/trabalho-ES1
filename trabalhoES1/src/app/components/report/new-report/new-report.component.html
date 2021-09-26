@@ -28,7 +28,7 @@
   <div class="row">
     <mat-form-field class="input" appearance="standard">
       <mat-label>Última atualização</mat-label>
-      <input matInput disabled value="16/02/1993 as 10:30">
+      <input matInput disabled [value]="currentDate | date:'dd/MM/y HH:mm'">
     </mat-form-field>
     <mat-form-field class="input-long" appearance="standard">
       <mat-label>Resultado da avaliação do último relatório</mat-label>

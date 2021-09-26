@@ -28,6 +28,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ViewComponent } from './pages/relatorios/view/view.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ViewComponent } from './pages/relatorios/view/view.component';
     MatSelectModule,
     MatDividerModule,
     MatSnackBarModule,
+    MatDialogModule,
 
     MatFormFieldModule,
     ReactiveFormsModule,

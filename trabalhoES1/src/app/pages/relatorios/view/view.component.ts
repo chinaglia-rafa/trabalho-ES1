@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { UserDataServiceService } from 'src/app/services/userDataService/user-data-service.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view',
@@ -30,37 +32,57 @@ export class ViewComponent implements OnInit {
   declaracaoExtra: any = "";
 
   report: any = null;
+  parecer: boolean = false;
+  parecerText: string = '';
+  parecerAvaliacao: string = '';
+  private uid: any = '';
 
-  constructor(private userDataService: UserDataServiceService) { }
+  constructor(
+    public userDataService: UserDataServiceService,
+    private activatedRoute: ActivatedRoute,
+    private route: Router,
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
+      this.uid = params.get('id');
+    });
+  }
+
+  /** Pega o texto preenchido pelo orientador para ser salvo no firebase */
+  sendParecerOrientador() {
+    console.log('Texto a ser salvo:', this.parecerText);
+    console.log('Id do relatório:', this.uid);
+    console.log('Avaliação foi:', this.parecerAvaliacao);
+    this.report.parecerOrientador = this.parecerText;
+    this.report.parecerOrientadorAvaliacao = this.parecerAvaliacao;
+    this.parecer = false;
+    // Mills, aqui precisa dar um UPDATE no relatório com o id this.uid e
+    // atualizar seu status pra Devolvido
+  }
+
+  /** Autoriza apenas estudantes, orientadores ou a CCP */
+  private authorize(report: any) {
+    console.log('authorizing student:', report.studentOwnerCode, this.userDataService.getUserUID());
+    console.log('authorizing professor:', report.leaderCode, this.userDataService.getUserUID());
+    if (this.userDataService.getUserData().type == "CCP") return true;
+    if (![report.leaderCode, report.studentOwnerCode].includes(this.userDataService.getUserUID())) return false;
+    return true;
   }
 
   ngAfterViewInit(): void {
     this.userDataService.userDataObservable.subscribe((data: any) => {
       if (!data.reports) return;
       setTimeout(() => {
-        this.report = data.reports[0];
-        console.log('this.report.answers.curso', this.report.courseLevel);
-        console.log('this.report.answers.ultimoSemestreMestrado', this.report.answers.ultimoSemestreMestrado);
-        console.log('this.report.answers.ultimoSemestreDoutorado', this.report.answers.ultimoSemestreDoutorado);
-        console.log('this.report.answers.disciplinasObrigatoriasAprovadas', this.report.answers.disciplinasObrigatoriasAprovadas);
-        console.log('this.report.answers.disciplinasOptativasAprovadas', this.report.answers.disciplinasOptativasAprovadas);
-        console.log('this.report.answers.conceitosDivulgadosUltimoSemestre', this.report.answers.conceitosDivulgadosUltimoSemestre);
-        console.log('this.report.answers.reprovacoesTotais', this.report.answers.reprovacoesTotais);
-        console.log('this.report.answers.reprovacoesUltimoSemestre', this.report.answers.reprovacoesUltimoSemestre);
-        console.log('this.report.answers.exameProficienciaIdiomas', this.report.answers.exameProficienciaIdiomas);
-        console.log('this.report.answers.exameQualificacao', this.report.answers.exameQualificacao);
-        console.log('this.report.answers.limiteQualificacao', this.report.answers.limiteQualificacao);
-        console.log('this.report.answers.limiteDepositoDissertacao', this.report.answers.limiteDepositoDissertacao);
-        console.log('this.report.answers.artigosPublicados', this.report.answers.artigosPublicados);
-        console.log('this.report.answers.artigosAguardandoResposta', this.report.answers.artigosAguardandoResposta);
-        console.log('this.report.answers.artigoPreparacao', this.report.answers.artigoPreparacao);
-        console.log('this.report.answers.estagioPesquisa', this.report.answers.estagioPesquisa);
-        console.log('this.report.answers.congressoPais', this.report.answers.congressoPais);
-        console.log('this.report.answers.congressoExterior', this.report.answers.congressoExterior);
-        console.log('this.report.answers.visitaPesquisa', this.report.answers.visitaPesquisa);
-        console.log('this.report.answers.declaracaoExtra', this.report.answers.declaracaoExtra);
+        /** Deusa me ajude de ter começado a usar "temp" como nome de variável */
+        const temp = data.reports.filter((element: any) => element.uid == this.uid);
+        if (temp.length == 0) return;
+        this.report = temp[0];
+        if (!this.authorize(this.report)) {
+          alert('Você não tem permissão para ver este relatório!');
+          this.route.navigateByUrl('/relatorios/list');
+        }
         this.curso = this.report.courseLevel;
         this.ultimoSemestreMestrado = this.report.answers.ultimoSemestreMestrado;
         this.ultimoSemestreDoutorado = this.report.answers.ultimoSemestreDoutorado;
@@ -81,8 +103,9 @@ export class ViewComponent implements OnInit {
         this.congressoExterior = this.report.answers.congressoExterior;
         this.visitaPesquisa = this.report.answers.visitaPesquisa;
         this.declaracaoExtra = this.report.answers.declaracaoExtra;
+        console.log('Reports:', data.reports);
+        console.log('Report:', this.report);
       }, 1000);
-      console.log('Report:', data.reports);
     });
   }
 

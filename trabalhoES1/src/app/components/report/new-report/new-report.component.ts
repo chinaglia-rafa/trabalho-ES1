@@ -33,6 +33,7 @@ export class NewReportComponent implements OnInit {
 
   user: any;
   displaySemester: string = "";
+  currentDate: string = Date();
 
   constructor(
     private userDataService : UserDataServiceService,
@@ -144,6 +145,7 @@ export class NewReportComponent implements OnInit {
     const semester = `${data.getFullYear()}-${s}`
 
     const newReport = {
+      updated: Date(),
       semester: semester,
       courseLevel: this.curso,
       studentOwnerCode: userUID,
@@ -157,7 +159,11 @@ export class NewReportComponent implements OnInit {
         lastResult: this.user.lastResult,
         lattesLink: this.user.lattesLink
       },
-      status: 'Devolvido',
+      status: 'Enviado para o professor',
+      parecerOrientador: '',
+      parecerOrientadorAvaliacao: '',
+      parecerCCP: '',
+      parecerCCPAvaliacao: '',
       answers: {
         ultimoSemestreMestrado: this.ultimoSemestreMestrado,
         ultimoSemestreDoutorado: this.ultimoSemestreDoutorado,

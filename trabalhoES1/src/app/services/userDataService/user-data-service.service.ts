@@ -43,7 +43,7 @@ export class UserDataServiceService {
 
         finalResult = {...responseClient, "leader" : responseLeader, "reports" : responseReports};
       }
-      else{
+      else if (responseClient.type == "leader"){
 
         responseReports = this.getReportsFromDBLeaderVersion(data.user.uid);
         let carretinha : any = [];
@@ -53,8 +53,7 @@ export class UserDataServiceService {
           elem.map((item : any) =>{
             let dummyData : any = {"data" : {}, "user" : {"name" : "dummy", "uid" : item.studentOwnerCode}};
 
-
-            innerStudentResponse =  this.getUserDataFromDB(dummyData);
+            innerStudentResponse =  this.getUserDataFromDB(dummyData, true);
             carretinha.push(innerStudentResponse);
             innerStudentResponse.then((i:any) => {
               console.log("i: ", i);
@@ -65,23 +64,17 @@ export class UserDataServiceService {
               else{
                 newReports.push(item);
               }
-
             })
           })
           Promise.all(carretinha).then((e) =>{
-            finalResult = {...responseClient, "reports" : newReports};
-            console.log("finalResult: ",finalResult);
+            finalResult = {...responseClient, "leader": responseClient, "reports" : newReports};
+            console.log("finalResultLEADER: ",finalResult);
+            this.userDataObservable.next(finalResult);
+            this.userData = finalResult;
           })
-
         })
-
-
-
       }
-
     }
-
-
 
     console.log("finalResult: ",finalResult);
 
@@ -91,12 +84,12 @@ export class UserDataServiceService {
     this.userData = finalResult;
   }
   getUserUID(){
-
     return this.userUID;
   }
-  async getUserDataFromDB(data: any){
+  async getUserDataFromDB(data: any, skipUID: boolean = false){
     const response =  (await this.db.firestore.collection("userData").doc(data.user.uid).get()).data();
-    this.userUID = data.user.uid;
+    console.log('this.userUID', data.user);
+    if (!skipUID) this.userUID = data.user.uid;
     return response;
   }
   setNewReport(data : any){
