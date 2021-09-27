@@ -124,6 +124,9 @@ firebase/database
 
 firebase/firestore
 
+keygenerator
+MIT
+
 rxjs
 Apache-2.0
                                Apache License
