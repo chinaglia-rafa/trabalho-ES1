@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { UserDataServiceService } from 'src/app/services/userDataService/user-data-service.service';
 
 @Component({
   selector: 'app-new-user',
@@ -13,14 +14,24 @@ export class NewUserComponent implements OnInit {
   senha = new FormControl('', [Validators.required]);
 
   numeroUsp = new FormControl('', [Validators.required]);
-  
+
   nome = new FormControl('', [Validators.required]);
 
-  constructor() { }
+  docentes: any = [];
+
+  constructor(public userDataService: UserDataServiceService) { }
 
   ngOnInit(): void {
-    
+
   }
+
+  ngAfterViewInit() {
+    this.userDataService.getAllLeaders().then((data: any) => {
+      console.log("professores: ", data);
+      this.docentes = data;
+    })
+  }
+
   getErrorMessage() {
     if (this.email.hasError('required')) {
       return 'Você deve inserir um e-mail valido';
@@ -28,5 +39,5 @@ export class NewUserComponent implements OnInit {
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
-  
+
 }
