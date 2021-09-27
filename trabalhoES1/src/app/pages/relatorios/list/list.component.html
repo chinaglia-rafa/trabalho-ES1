@@ -11,8 +11,8 @@
         </div>
         <div mat-line>
           Relatório {{ report.semester }}
-          <span class="data" *ngIf="report.parecerCPPAvaliacao || report.parecerOrientadorAvaliacao">
-            {{ report.parecerCPPAvaliacao || report.parecerOrientadorAvaliacao }}
+          <span class="data" [class.success]="report.parecerCCPAvaliacao == 'Adequado' || report.parecerCCPAvaliacao == 'Adequado com ressalvas'" [class.failure]="report.parecerCCPAvaliacao == 'Insatisfatório'" *ngIf="report.parecerCCPAvaliacao != '' || report.parecerOrientadorAvaliacao != ''">
+            {{ report.parecerCCPAvaliacao != '' ? report.parecerCCPAvaliacao : report.parecerOrientadorAvaliacao }}
           </span>
         </div>
         <div mat-line class="sub-line">

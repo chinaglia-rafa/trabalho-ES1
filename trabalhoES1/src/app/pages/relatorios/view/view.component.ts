@@ -58,6 +58,7 @@ export class ViewComponent implements OnInit {
     console.log('Texto a ser salvo:', this.parecerText);
     console.log('Id do relatório:', this.uid);
     console.log('Avaliação foi:', this.parecerAvaliacao);
+    this.report.status = 'Respondido pelo orientador';
     this.report.parecerOrientador = this.parecerText;
     this.report.parecerOrientadorAvaliacao = this.parecerAvaliacao;
     this.parecer = false;
@@ -68,6 +69,29 @@ export class ViewComponent implements OnInit {
         parecerOrientador: this.parecerText,
         parecerOrientadorAvaliacao : this.parecerAvaliacao,
         status : 'Respondido pelo orientador'
+      })
+    }
+
+    // Mills, aqui precisa dar um UPDATE no relatório com o id this.uid e
+    // atualizar seu status pra Devolvido
+  }
+
+  /** Pega o texto preenchido pelo orientador para ser salvo no firebase */
+  sendParecerCCP() {
+    console.log('Texto a ser salvo:', this.parecerText);
+    console.log('Id do relatório:', this.uid);
+    console.log('Avaliação foi:', this.parecerAvaliacao);
+    this.report.status = 'Avaliado pela CCP';
+    this.report.parecerCCP = this.parecerText;
+    this.report.parecerCCPAvaliacao = this.parecerAvaliacao;
+    this.parecer = false;
+
+    if(this.uid != '' && this.parecerText != '' && this.parecerAvaliacao != '')
+    {
+      this.db.collection("reports").doc(this.uid).update({
+        parecerCCP: this.parecerText,
+        parecerCCPAvaliacao : this.parecerAvaliacao,
+        status : 'Avaliado pela CCP'
       })
     }
 

@@ -103,12 +103,18 @@ mat-divider {
   height: 230px;
 }
 
-.parecerOrientador {
+.parecerOrientador,
+.parecerCCP {
   margin: 12px 0;
   padding: 12px;
   border-radius: 6px;
   border: 2px solid var(--color-primary);
   width: 600px;
+}
+
+.parecerCCP {
+  background: var(--color-primary);
+  color: white;
 }
 
 .icon-pos-fix {

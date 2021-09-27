@@ -24,13 +24,20 @@
       {{ report?.parecerOrientador }}
     </p>
   </div>
-  <div [class.open]="parecer" class="closed">
+  <div *ngIf="report && report?.parecerCCP != ''" class="parecerCCP">
+    <p><mat-icon class="icon-pos-fix">rate_review</mat-icon><strong>AVALIAÇÃO FINAL DA CCP</strong></p>
+    <p>Resultado: <strong style="text-transform: uppercase">{{ report?.parecerCCPAvaliacao }}</strong></p>
+    <p style="text-align: justify">
+      {{ report?.parecerCCP }}
+    </p>
+  </div>
+  <div [class.open]="parecer && !isCCP" class="closed">
     <mat-form-field class="input input--textarea" appearance="standard">
       <mat-label>Digite aqui o seu parecer como ORIENTADOR</mat-label>
       <textarea matInput [(ngModel)]="parecerText" placeholder="Digite aqui..." rows="7"></textarea>
     </mat-form-field>
     <mat-form-field ngDefaultControl appearance="standard" style="margin: 0 12px;">
-      <mat-label>Avaliação do docente</mat-label>
+      <mat-label>Avaliação do orientador</mat-label>
       <mat-select [(ngModel)]="parecerAvaliacao">
         <mat-option value="Adequado">Adequado</mat-option>
         <mat-option value="Adequado com ressalvas">Adequado com ressalvas</mat-option>
@@ -38,6 +45,21 @@
       </mat-select>
     </mat-form-field>
     <button (click)="sendParecerOrientador()" mat-stroked-button [disabled]="parecerAvaliacao == '' || parecerText == ''" color="primary">Enviar parecer</button>
+  </div>
+  <div [class.open]="parecer && isCCP" class="closed">
+    <mat-form-field class="input input--textarea" appearance="standard">
+      <mat-label>Digite aqui o seu parecer final como CCP</mat-label>
+      <textarea matInput [(ngModel)]="parecerText" placeholder="Digite aqui..." rows="7"></textarea>
+    </mat-form-field>
+    <mat-form-field ngDefaultControl appearance="standard" style="margin: 0 12px;">
+      <mat-label>Avaliação da CCP</mat-label>
+      <mat-select [(ngModel)]="parecerAvaliacao">
+        <mat-option value="Adequado">Adequado</mat-option>
+        <mat-option value="Adequado com ressalvas">Adequado com ressalvas</mat-option>
+        <mat-option value="Insatisfatório">Insatisfatório</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="sendParecerCCP()" mat-stroked-button [disabled]="parecerAvaliacao == '' || parecerText == ''" color="primary">Enviar parecer final</button>
   </div>
 </div>
 

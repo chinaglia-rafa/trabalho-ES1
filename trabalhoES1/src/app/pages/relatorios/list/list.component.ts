@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.userDataService.userDataObservable.subscribe((data: any) => {
-      this.isLeader = data.type == 'leader';
+      this.isLeader = data.type == 'leader' || data.type == 'CCP';
       console.log('List of reports:', data.reports);
       this.reports = data.reports;
     });
