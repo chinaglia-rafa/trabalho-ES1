@@ -1,5 +1,5 @@
 <div class="caixa">
-    <h1 class="tituloCaixa">Login</h1>
+    <h1 class="tituloCaixa">Criar novo usuario</h1>
     <p>
         <mat-form-field appearance="standard" class="formulario">
             <mat-label>e-mail</mat-label>
@@ -12,7 +12,16 @@
             <input type="password" value="123456" matInput [formControl]="senha" placeholder="senha">
         </mat-form-field>
         <br>
-        <a style="text-decoration: none; font-size: small;" [routerLink]="'/newUser'">Cadastrar novo usuário</a>
-        <button color="primary" mat-raised-button (click)="logIn()" class="acesso">Acesssar</button>
+        <mat-form-field appearance="standard" class="formulario">
+            <mat-label>Nome</mat-label>
+            <input matInput value="nome" [formControl]="nome" placeholder="Nome">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="standard" class="formulario">
+            <mat-label>Numero usp</mat-label>
+            <input matInput value="000000" [formControl]="numeroUsp" placeholder="000000">
+        </mat-form-field>
+        <br>
+        <button color="primary" mat-raised-button class="acesso">Cadastrar</button>
     </p>
 </div>

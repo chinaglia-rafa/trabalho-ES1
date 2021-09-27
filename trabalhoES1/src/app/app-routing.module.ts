@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ListComponent } from './pages/relatorios/list/list.component';
 import { ViewComponent } from './pages/relatorios/view/view.component';
+import { NewUserComponent } from './pages/new-user/new-user.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'relatorios/list', component: ListComponent },
   { path: 'relatorios/view/:id', component: ViewComponent },
   { path: 'new-report', component: NewReportComponent },
+  { path: 'newUser', component: NewUserComponent },
 ];
 
 @NgModule({
