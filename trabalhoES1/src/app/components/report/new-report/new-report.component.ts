@@ -159,7 +159,7 @@ export class NewReportComponent implements OnInit {
         lastResult: this.user.lastResult,
         lattesLink: this.user.lattesLink
       },
-      status: 'Enviado para o professor',
+      status: 'Enviado',
       parecerOrientador: '',
       parecerOrientadorAvaliacao: '',
       parecerCCP: '',
