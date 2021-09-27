@@ -24,7 +24,20 @@ export class UserDataServiceService {
     this.init();
   }
 
-
+  getAllLeaders(){
+    return new Promise((resolve, reject) => {
+    let dataResponse: any = [];
+    const leaders = this.db.collection("userData", ref => ref.where('type', '==', 'leader')).valueChanges().subscribe(data => {
+      data.map((item, index) =>{
+        dataResponse[index] = data[index];
+      })
+      resolve(dataResponse);
+    })
+    
+    });
+    
+    
+  }
   async setUserData(data : any){
 
     let responseClient : any = await this.getUserDataFromDB(data);

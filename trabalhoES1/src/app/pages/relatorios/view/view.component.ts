@@ -51,6 +51,10 @@ export class ViewComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       this.uid = params.get('id');
     });
+
+    this.userDataService.getAllLeaders().then((data) => {
+      console.log("professores: ", data);
+    })
   }
 
   /** Pega o texto preenchido pelo orientador para ser salvo no firebase */
