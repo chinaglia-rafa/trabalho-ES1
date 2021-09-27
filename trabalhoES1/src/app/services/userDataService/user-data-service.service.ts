@@ -68,11 +68,19 @@ export class UserDataServiceService {
           })
           Promise.all(carretinha).then((e) =>{
             finalResult = {...responseClient, "leader": responseClient, "reports" : newReports};
-            console.log("finalResultLEADER: ",finalResult);
+            //console.log("finalResultLEADER: ",finalResult);
             this.userDataObservable.next(finalResult);
             this.userData = finalResult;
           })
         })
+      }
+      else if(responseClient.type == "CCP")
+      {
+        
+        responseReports = this.getReportsFromDBCCP();
+        
+        finalResult = {...responseClient, "reports": responseReports};
+        this.userData = finalResult;
       }
     }
 
@@ -82,6 +90,17 @@ export class UserDataServiceService {
 
     this.userDataObservable.next(finalResult);
     this.userData = finalResult;
+  }
+  async getReportsFromDBCCP(){
+    let dataResponse: any = [];
+    //console.log("user ID: ",userID);
+    let response = await this.db.collection("reports").valueChanges().subscribe(data => {
+      data.map((item, index) =>{
+        dataResponse[index] = data[index];
+        //console.log("reports data: ",item);
+      })
+    })
+    return dataResponse;
   }
   getUserUID(){
     return this.userUID;
