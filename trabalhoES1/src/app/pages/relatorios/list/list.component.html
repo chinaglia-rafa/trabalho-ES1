@@ -6,6 +6,9 @@
         <mat-icon *ngIf="report.status == 'Enviado'" mat-list-icon>grading</mat-icon>
         <mat-icon *ngIf="report.status == 'Respondido pelo orientador'" mat-list-icon>reply</mat-icon>
         <mat-icon *ngIf="report.status == 'Avaliado pela CCP'" mat-list-icon class="done">check_circle</mat-icon>
+        <div mat-line *ngIf="isLeader">
+          {{ isLeader ? report.student?.name : '' }}
+        </div>
         <div mat-line>
           Relatório {{ report.semester }}
           <span class="data" *ngIf="report.parecerCPPAvaliacao || report.parecerOrientadorAvaliacao">
