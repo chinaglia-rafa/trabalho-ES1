@@ -1,0 +1,25 @@
+.caixa{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    box-shadow: 0px 0px 5px black;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 3%;
+    padding-top: 1%;
+}
+.formulario{
+    width: 250px;
+}
+.tituloCaixa{
+    text-align: center;
+}
+.acesso{
+    position:fixed;
+    right: 30px;
+}

@@ -29,6 +29,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ViewComponent } from './pages/relatorios/view/view.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NewUserComponent } from './pages/new-user/new-user.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     NewReportComponent,
     ListComponent,
     ViewComponent,
+    NewUserComponent,
   ],
   imports: [
     BrowserModule,
