@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { UserDataServiceService } from 'src/app/services/userDataService/user-data-service.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-view',
@@ -41,6 +42,7 @@ export class ViewComponent implements OnInit {
     public userDataService: UserDataServiceService,
     private activatedRoute: ActivatedRoute,
     private route: Router,
+    private db: AngularFirestore,
     private dialog: MatDialog,
   ) { }
 
@@ -58,6 +60,16 @@ export class ViewComponent implements OnInit {
     this.report.parecerOrientador = this.parecerText;
     this.report.parecerOrientadorAvaliacao = this.parecerAvaliacao;
     this.parecer = false;
+
+    if(this.uid != '' && this.parecerText != '' && this.parecerAvaliacao != '')
+    {
+      this.db.collection("reports").doc(this.uid).update({
+        parecerOrientador: this.parecerText,
+        parecerOrientadorAvaliacao : this.parecerAvaliacao
+      })
+    }
+    
+
     // Mills, aqui precisa dar um UPDATE no relatório com o id this.uid e
     // atualizar seu status pra Devolvido
   }
