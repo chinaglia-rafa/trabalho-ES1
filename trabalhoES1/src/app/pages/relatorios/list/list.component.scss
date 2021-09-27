@@ -19,10 +19,19 @@
   overflow: hidden;
 }
 
-.list-container mat-list {
+.list-container mat-nav-list {
   height: 100%;
   overflow: auto;
   max-width: 600px;
+}
+
+.data {
+  font-size: 0.8em;
+  border-radius: 10px;
+  padding: 3px 10px;
+  background: rgba(200, 200, 200, 0.9);
+  display: inline-block;
+  text-transform: uppercase;
 }
 
 .list-container .subheader {
