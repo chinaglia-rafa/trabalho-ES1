@@ -37,6 +37,7 @@ export class ViewComponent implements OnInit {
   parecerText: string = '';
   parecerAvaliacao: string = '';
   private uid: any = '';
+  isCCP: boolean = false;
 
   constructor(
     public userDataService: UserDataServiceService,
@@ -65,10 +66,10 @@ export class ViewComponent implements OnInit {
     {
       this.db.collection("reports").doc(this.uid).update({
         parecerOrientador: this.parecerText,
-        parecerOrientadorAvaliacao : this.parecerAvaliacao
+        parecerOrientadorAvaliacao : this.parecerAvaliacao,
+        status : 'Respondido pelo orientador'
       })
     }
-    
 
     // Mills, aqui precisa dar um UPDATE no relatório com o id this.uid e
     // atualizar seu status pra Devolvido
@@ -85,6 +86,8 @@ export class ViewComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.userDataService.userDataObservable.subscribe((data: any) => {
+      console.log('datadatadatadatadata', data);
+      if (data.type == 'CCP') this.isCCP = true;
       if (!data.reports) return;
       setTimeout(() => {
         /** Deusa me ajude de ter começado a usar "temp" como nome de variável */

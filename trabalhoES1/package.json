@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~12.1.2",
     "@angular/platform-browser-dynamic": "~12.1.2",
     "@angular/router": "~12.1.2",
+    "angular-cli-ghpages": "^1.0.0-rc.2",
     "firebase": "^8.10.0",
     "firebase-app": "0.0.1",
     "keygenerator": "^1.0.4",

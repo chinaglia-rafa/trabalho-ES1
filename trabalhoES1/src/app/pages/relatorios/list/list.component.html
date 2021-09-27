@@ -2,7 +2,7 @@
   <div class="list-container">
     <mat-label class="subheader">Meus relatórios</mat-label>
     <mat-nav-list>
-      <a mat-list-item [href]="'/relatorios/view/' + report.uid" *ngFor="let report of reports">
+      <a mat-list-item [routerLink]="'/relatorios/view/' + report.uid" *ngFor="let report of reports">
         <mat-icon *ngIf="report.status == 'Enviado'" mat-list-icon>grading</mat-icon>
         <mat-icon *ngIf="report.status == 'Respondido pelo orientador'" mat-list-icon>reply</mat-icon>
         <mat-icon *ngIf="report.status == 'Avaliado pela CCP'" mat-list-icon class="done">check_circle</mat-icon>
@@ -23,6 +23,6 @@
         </div>
       </a>
     </mat-nav-list>
-    <button mat-fab class="fab-button" [routerLink]="'/new-report'" aria-label="Adicionar novo relatório" color="primary"><mat-icon>add</mat-icon></button>
+    <button *ngIf="!isLeader" mat-fab class="fab-button" [routerLink]="'/new-report'" aria-label="Adicionar novo relatório" color="primary"><mat-icon>add</mat-icon></button>
   </div>
 </div>

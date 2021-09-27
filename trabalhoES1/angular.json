@@ -44,7 +44,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -108,15 +108,11 @@
           }
         },
         "deploy": {
-          "builder": "@angular/fire:deploy",
+          "builder": "angular-cli-ghpages:deploy",
           "options": {}
         }
       }
     }
   },
-  "defaultProject": "trabalhoES1",
-  "cli": {
-    "analytics": false
-  }
-
+  "defaultProject": "trabalhoES1"
 }
