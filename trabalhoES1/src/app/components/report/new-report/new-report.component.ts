@@ -32,6 +32,8 @@ export class NewReportComponent implements OnInit {
   declaracaoExtra: any = "";
 
   user: any;
+  displaySemester: string = "";
+  currentDate: string = Date();
 
   constructor(
     private userDataService : UserDataServiceService,
@@ -39,9 +41,9 @@ export class NewReportComponent implements OnInit {
     private snackbar: MatSnackBar,
   ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
 
-    
+
   }
 
   validate() {
@@ -143,11 +145,25 @@ export class NewReportComponent implements OnInit {
     const semester = `${data.getFullYear()}-${s}`
 
     const newReport = {
+      updated: Date(),
       semester: semester,
       courseLevel: this.curso,
       studentOwnerCode: userUID,
       lattes: this.user.lattesLink,
       leaderCode: this.user.leaderID,
+      leader: this.user.leader,
+      student: {
+        uspNumber: this.user.uspNumber,
+        name: this.user.name,
+        email: this.user.email,
+        lastResult: this.user.lastResult,
+        lattesLink: this.user.lattesLink
+      },
+      status: 'Enviado para o professor',
+      parecerOrientador: '',
+      parecerOrientadorAvaliacao: '',
+      parecerCCP: '',
+      parecerCCPAvaliacao: '',
       answers: {
         ultimoSemestreMestrado: this.ultimoSemestreMestrado,
         ultimoSemestreDoutorado: this.ultimoSemestreDoutorado,
@@ -173,16 +189,16 @@ export class NewReportComponent implements OnInit {
 
     console.log('Data to be saved:', newReport);
 
-    
+
     if(this.isAbletoSave())
     {
       this.userDataService.setNewReport(newReport);
     }
     else{
-      alert("você já enviou um relatório esse semestre")
+      alert("você já enviou um relatório esse semestre!")
       return;
     }
-    
+
     // Mills, aqui está o objeto com os dados que eu tenho! Crie uma função no serviço pra completar os que faltam
     // e grave o novo relatório *CASO NÃO HAJA UM COM O MESMO SEMESTER JÁ GRAVADO* pra evitar problemas de alunos
     // mandando vários relatórios pro mesmo semestre
@@ -203,22 +219,26 @@ export class NewReportComponent implements OnInit {
     const reports = this.user.reports;
 
     for (let i = 0; i < reports.length; i++) {
-      
+
       if(reports[i].semester == semester){
         return false;
       }
-      
+
     }
 
     return true
   }
   ngAfterViewInit() {
-    // this.userDataService.userDataObservable.subscribe((data: any) => {
-    //   console.log('FANCY:', data);
-    //   this.user = data;
-    // });
-    this.user = this.userDataService.getUserData()
-    console.log("this.user: " ,this.user);
+    this.userDataService.userDataObservable.subscribe((data: any) => {
+      const hoje = new Date();
+      let s = 1;
+      if (hoje.getMonth() >= 6) s = 2;
+      this.displaySemester = `${s}º semestre, ${hoje.getFullYear()}`;
+
+      this.user = data;
+    });
+    // this.user = this.userDataService.getUserData();
+    // console.log("this.user: " ,this.user);
   }
 
   /*checkNumeroUSP(num:any): boolean {

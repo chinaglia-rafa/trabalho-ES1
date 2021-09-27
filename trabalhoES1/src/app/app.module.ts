@@ -27,6 +27,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ViewComponent } from './pages/relatorios/view/view.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AboutComponent,
     NewReportComponent,
     ListComponent,
+    ViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatDividerModule,
     MatSnackBarModule,
+    MatDialogModule,
 
     MatFormFieldModule,
     ReactiveFormsModule,

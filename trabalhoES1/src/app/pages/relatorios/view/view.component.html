@@ -1,59 +1,84 @@
+<a mat-stroked-button href="/relatorios/list" class="back-button"><mat-icon>arrow_back</mat-icon> Voltar</a>
 <div class="intro">
-  <p>
-    Preencha os dados abaixo para submeter o seu relatório semestral. Antes de prosseguir, confira os dados abaixo:
-  </p>
   <table>
     <tr>
       <td>Semestre</td>
-      <td>{{ displaySemester }}</td>
+      <td>{{ report?.semester }}</td>
+      <td></td>
     </tr>
     <tr>
       <td>Orientador</td>
-      <td>{{ user?.leader?.name }}</td>
+      <td>{{ report?.leader.name || report?.leader }}</td>
+      <td>
+        <button (click)="parecer = true" *ngIf="report?.parecerOrientador == '' && !parecer && report?.leaderCode == userDataService.getUserUID()" color="accent" mat-raised-button><mat-icon>rate_review</mat-icon> Redigir Parecer</button>
+        <button (click)="parecer = false" *ngIf="report?.parecerOrientador == '' && parecer && report?.leaderCode == userDataService.getUserUID()" color="warn" mat-raised-button><mat-icon>close</mat-icon> Cancelar</button>
+      </td>
     </tr>
   </table>
+  <div *ngIf="report && report?.parecerOrientador != ''" class="parecerOrientador">
+    <p><mat-icon class="icon-pos-fix">rate_review</mat-icon><strong>AVALIAÇÃO DO ORIENTADOR</strong></p>
+    <p>Resultado: <strong style="text-transform: uppercase">{{ report?.parecerOrientadorAvaliacao }}</strong></p>
+    <p style="text-align: justify">
+      {{ report?.parecerOrientador }}
+    </p>
+  </div>
+  <div [class.open]="parecer" class="closed">
+    <mat-form-field class="input input--textarea" appearance="standard">
+      <mat-label>Digite aqui o seu parecer como ORIENTADOR</mat-label>
+      <textarea matInput [(ngModel)]="parecerText" placeholder="Digite aqui..." rows="7"></textarea>
+    </mat-form-field>
+    <mat-form-field ngDefaultControl appearance="standard" style="margin: 0 12px;">
+      <mat-label>Avaliação do docente</mat-label>
+      <mat-select [(ngModel)]="parecerAvaliacao">
+        <mat-option value="Adequado">Adequado</mat-option>
+        <mat-option value="Adequado com ressalvas">Adequado com ressalvas</mat-option>
+        <mat-option value="Insatisfatório">Insatisfatório</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="sendParecerOrientador()" mat-stroked-button [disabled]="parecerAvaliacao == '' || parecerText == ''" color="primary">Enviar parecer</button>
+  </div>
 </div>
 
 <div class="form">
   <div class="row">
     <mat-form-field class="input" appearance="standard">
       <mat-label>Nome do aluno</mat-label>
-      <input matInput disabled [value]="user?.name || 'Carregando...'">
+      <input matInput disabled [value]="report?.student.name || 'Carregando...'">
     </mat-form-field>
     <mat-form-field class="input" appearance="standard">
       <mat-label>E-mail</mat-label>
-      <input matInput disabled [value]="user?.email || 'Carregando...'">
+      <input matInput disabled [value]="report?.student.email || 'Carregando...'">
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field class="input" appearance="standard">
       <mat-label>Última atualização</mat-label>
-      <input matInput disabled [value]="currentDate | date:'dd/MM/y HH:mm'">
+      <input matInput disabled [value]="report?.updated | date:'dd/MM/y HH:mm'">
     </mat-form-field>
     <mat-form-field class="input-long" appearance="standard">
       <mat-label>Resultado da avaliação do último relatório</mat-label>
-      <input matInput disabled [value]="user?.lastResult || 'Carregando...'">
+      <input matInput disabled [value]="report?.student.lastResult || 'Carregando...'">
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field class="input" appearance="standard">
       <mat-label>Número USP</mat-label>
-      <input matInput placeholder="Digite apenas os números." [value]="user?.uspNumber || 'Carregando...'">
+      <input matInput disabled placeholder="Digite apenas os números." [value]="report?.student.uspNumber || 'Carregando...'">
     </mat-form-field>
     <mat-form-field class="input-long" appearance="standard">
       <mat-label>Link do Curriculum Lattes</mat-label>
-      <input matInput placeholder="https://..." [value]="user?.lattesLink || 'Carregando...'">
+      <input matInput disabled placeholder="https://..." [value]="report?.student.lattesLink || 'Carregando...'">
     </mat-form-field>
   </div>
   <div class="row" style="height: 81px;">
-    <mat-radio-group ngDefaultControl [(ngModel)]="curso" aria-label="Selecione uma opção">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="curso" aria-label="Selecione uma opção">
       <mat-label><div class="question-number">1</div> Selecione o curso: </mat-label>
       <mat-radio-button color="primary" value="1">Mestrado</mat-radio-button>
       <mat-radio-button color="primary" value="2">Doutorado</mat-radio-button>
     </mat-radio-group>
     <mat-form-field ngDefaultControl class="input-long" [class.hide]="!curso || curso == 2" appearance="standard">
       <mat-label>Último semestre concluído do Mestrado</mat-label>
-      <mat-select [(ngModel)]="ultimoSemestreMestrado">
+      <mat-select disabled [(ngModel)]="ultimoSemestreMestrado">
         <mat-option value="1">1º semestre</mat-option>
         <mat-option value="2">2º semestre</mat-option>
         <mat-option value="3">3º semestre</mat-option>
@@ -63,7 +88,7 @@
     </mat-form-field>
     <mat-form-field ngDefaultControl class="input-long" [class.hide]="!curso || curso == 1" appearance="standard">
       <mat-label>Último semestre concluído do Doutorado</mat-label>
-      <mat-select [(ngModel)]="ultimoSemestreDoutorado">
+      <mat-select disabled [(ngModel)]="ultimoSemestreDoutorado">
         <mat-option value="1">1º semestre</mat-option>
         <mat-option value="2">2º semestre</mat-option>
         <mat-option value="3">3º semestre</mat-option>
@@ -83,7 +108,7 @@
     <br>
     <mat-form-field ngDefaultControl [(ngModel)]="disciplinasObrigatoriasAprovadas" class="input" appearance="standard">
       <mat-label>Número de disciplinas</mat-label>
-      <input matInput placeholder="Apenas números">
+      <input disabled [value]="disciplinasObrigatoriasAprovadas" matInput placeholder="Apenas números">
     </mat-form-field>
   </div>
 
@@ -92,7 +117,7 @@
     <br>
     <mat-form-field ngDefaultControl [(ngModel)]="disciplinasOptativasAprovadas" class="input" appearance="standard">
       <mat-label>Número de disciplinas</mat-label>
-      <input matInput placeholder="Apenas números">
+      <input disabled [value]="disciplinasOptativasAprovadas" matInput placeholder="Apenas números">
     </mat-form-field>
   </div>
 
@@ -105,7 +130,7 @@
       Caso não, espere até 2 dias antes da data máxima definida no site do PPgSI para enviar o seu relatório.
     </mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="conceitosDivulgadosUltimoSemestre" aria-label="Selecione uma opção">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="conceitosDivulgadosUltimoSemestre" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Sim</mat-radio-button>
       <mat-radio-button color="primary" value="2">Não</mat-radio-button>
     </mat-radio-group>
@@ -114,7 +139,7 @@
   <div class="row row--flexless">
     <mat-label><div class="question-number">5</div> Em quantas disciplinas você foi reprovado desde o início do mestrado/doutorado?</mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="reprovacoesTotais" aria-label="Selecione uma opção">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="reprovacoesTotais" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="0">0</mat-radio-button>
       <mat-radio-button color="primary" value="1">1</mat-radio-button>
       <mat-radio-button color="primary" value="2">2</mat-radio-button>
@@ -123,7 +148,7 @@
   <div class="row row--flexless">
     <mat-label><div class="question-number">6</div> Em quantas disciplinas você foi reprovado no último semestre?</mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="reprovacoesUltimoSemestre" aria-label="Selecione uma opção">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="reprovacoesUltimoSemestre" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="0">0</mat-radio-button>
       <mat-radio-button color="primary" value="1">1</mat-radio-button>
       <mat-radio-button color="primary" value="2">2</mat-radio-button>
@@ -134,7 +159,7 @@
   <div class="row row--flexless">
     <mat-label><div class="question-number">7</div> Você já foi aprovado no exame de proficiência em idiomas?</mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="exameProficienciaIdiomas" aria-label="Selecione uma opção">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="exameProficienciaIdiomas" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Sim</mat-radio-button>
       <mat-radio-button color="primary" value="0">Não</mat-radio-button>
     </mat-radio-group>
@@ -143,7 +168,7 @@
   <div class="row row--flexless">
     <mat-label><div class="question-number">8</div> Você já realizou o exame de qualificação?</mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="exameQualificacao" aria-label="Selecione uma opção">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="exameQualificacao" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Sim. Fui aprovado.</mat-radio-button>
       <mat-radio-button color="primary" value="2">Sim. Fui reprovado.</mat-radio-button>
       <mat-radio-button color="primary" value="3">Não.</mat-radio-button>
@@ -153,7 +178,7 @@
   <div class="row row--flexless">
     <mat-label><div [class.disabled]="!exameQualificacao || exameQualificacao == '1'" class="question-number">9</div> Se não qualificou, quanto tempo falta para o limite máximo de qualificação?</mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="limiteQualificacao" [disabled]="!exameQualificacao || exameQualificacao == '1'" aria-label="Selecione uma opção">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="limiteQualificacao" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Menos de 3 meses</mat-radio-button>
       <mat-radio-button color="primary" value="2">Entre 3 e 6 meses</mat-radio-button>
       <mat-radio-button color="primary" value="3">Mais de 6 meses</mat-radio-button>
@@ -167,7 +192,7 @@
       máximo do depósito da sua dissertação/tese?
     </mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="limiteDepositoDissertacao" aria-label="Selecione uma opção" [disabled]="!exameQualificacao || exameQualificacao != '1'">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="limiteDepositoDissertacao" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Menos de 3 meses</mat-radio-button>
       <mat-radio-button color="primary" value="2">Entre 3 e 6 meses</mat-radio-button>
       <mat-radio-button color="primary" value="3">Mais de 6 meses</mat-radio-button>
@@ -182,7 +207,7 @@
       currículo Lattes)
     </mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="artigosPublicados" aria-label="Selecione uma opção">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="artigosPublicados" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">0</mat-radio-button>
       <mat-radio-button color="primary" value="2">1</mat-radio-button>
       <mat-radio-button color="primary" value="3">2</mat-radio-button>
@@ -196,7 +221,7 @@
       Quantos artigos você submeteu e ainda estão aguardando resposta?
     </mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="artigosAguardandoResposta" aria-label="Selecione uma opção">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="artigosAguardandoResposta" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">0</mat-radio-button>
       <mat-radio-button color="primary" value="2">1</mat-radio-button>
       <mat-radio-button color="primary" value="3">2</mat-radio-button>
@@ -210,7 +235,7 @@
       Você possui artigo em preparação para submissão? Qual o estágio dele?
     </mat-label>
     <br><br>
-    <mat-radio-group ngDefaultControl [(ngModel)]="artigoPreparacao" aria-label="Selecione uma opção">
+    <mat-radio-group disabled ngDefaultControl [(ngModel)]="artigoPreparacao" aria-label="Selecione uma opção">
       <mat-radio-button color="primary" value="1">Não possuo</mat-radio-button>
       <mat-radio-button color="primary" value="2">Experimentos em elaboração</mat-radio-button>
       <mat-radio-button color="primary" value="3">Aguardando coleta de dados</mat-radio-button>
@@ -232,7 +257,7 @@
     <br><br>
     <mat-form-field ngDefaultControl [(ngModel)]="estagioPesquisa" class="input-long" appearance="standard">
       <mat-label>Descreva detalhadamente</mat-label>
-      <textarea matInput placeholder="Digite aqui."></textarea>
+      <textarea disabled [value]="estagioPesquisa" matInput placeholder="Digite aqui."></textarea>
     </mat-form-field>
   </div>
 
@@ -245,7 +270,7 @@
     <br><br>
     <mat-form-field ngDefaultControl [(ngModel)]="congressoPais" class="input-long" appearance="standard">
       <mat-label>Digite aqui</mat-label>
-      <textarea matInput placeholder="Digite aqui."></textarea>
+      <textarea disabled [value]="congressoPais" matInput placeholder="Digite aqui."></textarea>
     </mat-form-field>
   </div>
 
@@ -258,7 +283,7 @@
     <br><br>
     <mat-form-field ngDefaultControl [(ngModel)]="congressoExterior" class="input-long" appearance="standard">
       <mat-label>Digite aqui</mat-label>
-      <textarea matInput placeholder="Digite aqui."></textarea>
+      <textarea disabled [value]="congressoExterior" matInput placeholder="Digite aqui."></textarea>
     </mat-form-field>
   </div>
 
@@ -271,7 +296,7 @@
     <br><br>
     <mat-form-field ngDefaultControl [(ngModel)]="visitaPesquisa" class="input-long" appearance="standard">
       <mat-label>Digite aqui</mat-label>
-      <textarea matInput placeholder="Digite aqui."></textarea>
+      <textarea disabled [value]="visitaPesquisa" matInput placeholder="Digite aqui."></textarea>
     </mat-form-field>
   </div>
 
@@ -283,12 +308,10 @@
     <br><br>
     <mat-form-field ngDefaultControl [(ngModel)]="declaracaoExtra" class="input-long" appearance="standard">
       <mat-label>Digite aqui</mat-label>
-      <textarea matInput placeholder="Digite aqui."></textarea>
+      <textarea disabled [value]="declaracaoExtra" matInput placeholder="Digite aqui."></textarea>
     </mat-form-field>
   </div>
-
   <div class="row">
-    <a href="relatorios/list" style="margin-right: 8px;" mat-stroked-button color="primary">Cancelar</a>
-    <button (click)="submit()" mat-raised-button color="primary">Salvar Relatório</button>
+    <button *ngIf="report?.leaderCode == userDataService.getUserUID()" color="accent" mat-raised-button><mat-icon>rate_review</mat-icon> Redigir Parecer</button>
   </div>
 </div>
