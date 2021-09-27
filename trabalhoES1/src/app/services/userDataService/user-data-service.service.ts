@@ -76,11 +76,15 @@ export class UserDataServiceService {
       }
       else if(responseClient.type == "CCP")
       {
-        
+
         responseReports = this.getReportsFromDBCCP();
-        
-        finalResult = {...responseClient, "reports": responseReports};
-        this.userData = finalResult;
+        responseReports.then((data: any) => {
+          finalResult = {...responseClient, "reports": data};
+          // console.log("finalResultCCP: ",finalResult);
+          this.userDataObservable.next(finalResult);
+          this.userData = finalResult;
+        });
+
       }
     }
 

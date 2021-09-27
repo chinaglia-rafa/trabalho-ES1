@@ -2,14 +2,17 @@
   <div class="list-container">
     <mat-label class="subheader">Meus relatórios</mat-label>
     <mat-nav-list>
-      <a mat-list-item [href]="'/relatorios/view/' + report.uid" *ngFor="let report of reports">
+      <a mat-list-item [routerLink]="'/relatorios/view/' + report.uid" *ngFor="let report of reports">
         <mat-icon *ngIf="report.status == 'Enviado'" mat-list-icon>grading</mat-icon>
         <mat-icon *ngIf="report.status == 'Respondido pelo orientador'" mat-list-icon>reply</mat-icon>
         <mat-icon *ngIf="report.status == 'Avaliado pela CCP'" mat-list-icon class="done">check_circle</mat-icon>
+        <div mat-line *ngIf="isLeader">
+          {{ isLeader ? report.student?.name : '' }}
+        </div>
         <div mat-line>
           Relatório {{ report.semester }}
-          <span class="data" *ngIf="report.parecerCPPAvaliacao || report.parecerOrientadorAvaliacao">
-            {{ report.parecerCPPAvaliacao || report.parecerOrientadorAvaliacao }}
+          <span class="data" [class.success]="report.parecerCCPAvaliacao == 'Adequado' || report.parecerCCPAvaliacao == 'Adequado com ressalvas'" [class.failure]="report.parecerCCPAvaliacao == 'Insatisfatório'" *ngIf="report.parecerCCPAvaliacao != '' || report.parecerOrientadorAvaliacao != ''">
+            {{ report.parecerCCPAvaliacao != '' ? report.parecerCCPAvaliacao : report.parecerOrientadorAvaliacao }}
           </span>
         </div>
         <div mat-line class="sub-line">
@@ -20,6 +23,6 @@
         </div>
       </a>
     </mat-nav-list>
-    <button mat-fab class="fab-button" [routerLink]="'/new-report'" aria-label="Adicionar novo relatório" color="primary"><mat-icon>add</mat-icon></button>
+    <button *ngIf="!isLeader" mat-fab class="fab-button" [routerLink]="'/new-report'" aria-label="Adicionar novo relatório" color="primary"><mat-icon>add</mat-icon></button>
   </div>
 </div>

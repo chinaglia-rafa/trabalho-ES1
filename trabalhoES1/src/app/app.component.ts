@@ -10,7 +10,6 @@ export class AppComponent {
 
   public menu = [
     { name: 'Login', icon: 'login', link: '/login' },
-    { name: 'Home', icon: 'home', link: '/home' },
     { name: 'Relatórios', icon: 'grading', link: '/relatorios/list' },
     { name: 'Sobre', icon: 'info', link: '/about' },
   ];
