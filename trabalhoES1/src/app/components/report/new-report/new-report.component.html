@@ -40,9 +40,9 @@
       <mat-label>Número USP</mat-label>
       <input matInput placeholder="Digite apenas os números." [value]="user?.uspNumber || 'Carregando...'">
     </mat-form-field>
-    <mat-form-field class="input-long" appearance="standard">
+    <mat-form-field class="input-long"  ngDefaultControl [(ngModel)]="lattes" appearance="standard">
       <mat-label>Link do Curriculum Lattes</mat-label>
-      <input matInput placeholder="https://..." [value]="user?.lattesLink || 'Carregando...'">
+      <input matInput placeholder="https://..." [value]="user?.lattesLink">
     </mat-form-field>
   </div>
   <div class="row" style="height: 81px;">

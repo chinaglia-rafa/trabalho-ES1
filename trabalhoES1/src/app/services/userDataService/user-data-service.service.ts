@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 declare var require: any
@@ -20,6 +21,7 @@ export class UserDataServiceService {
   constructor(
     private db: AngularFirestore,
     private router: Router,
+    private auth: AngularFireAuthModule
   ) {
     this.init();
   }

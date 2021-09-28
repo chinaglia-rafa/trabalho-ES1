@@ -24,11 +24,11 @@
         <br>
         <mat-form-field>
           <mat-label>Orientador</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let item of docentes" value="item.uid">{{ item.name }}</mat-option>
+          <mat-select [(ngModel)]="orientador">
+            <mat-option *ngFor="let item of docentes" [value]="item.uid">{{ item.name }}</mat-option>
           </mat-select>
         </mat-form-field>
         <br>
-        <button color="primary" mat-raised-button class="acesso">Cadastrar</button>
+        <button color="primary" (click)="submit()" mat-raised-button class="acesso">Cadastrar</button>
     </p>
 </div>

@@ -93,6 +93,9 @@ export class ViewComponent implements OnInit {
         parecerCCPAvaliacao : this.parecerAvaliacao,
         status : 'Avaliado pela CCP'
       })
+      this.db.collection("userData").doc(this.report.studentOwnerCode).update({
+        "lastResult" : this.parecerAvaliacao + " PIMBA"
+      })
     }
 
     // Mills, aqui precisa dar um UPDATE no relatório com o id this.uid e

@@ -30,6 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ViewComponent } from './pages/relatorios/view/view.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NewUserComponent } from './pages/new-user/new-user.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NewUserComponent } from './pages/new-user/new-user.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AngularFireAuthModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserDataServiceService } from 'src/app/services/userDataService/user-data-service.service';
@@ -11,6 +13,7 @@ import { UserDataServiceService } from 'src/app/services/userDataService/user-da
 export class NewReportComponent implements OnInit {
 
   curso: any = "";
+  lattes : any = "";
   ultimoSemestreMestrado: any = "";
   ultimoSemestreDoutorado: any = "";
   disciplinasObrigatoriasAprovadas: any = "";
@@ -37,6 +40,7 @@ export class NewReportComponent implements OnInit {
 
   constructor(
     private userDataService : UserDataServiceService,
+    private db : AngularFirestore,
     private router: Router,
     private snackbar: MatSnackBar,
   ) { }
@@ -193,6 +197,9 @@ export class NewReportComponent implements OnInit {
     if(this.isAbletoSave())
     {
       this.userDataService.setNewReport(newReport);
+      this.db.collection("userData").doc(this.userDataService.getUserUID()).update({
+        "lattesLink": this.lattes
+      })
     }
     else{
       alert("você já enviou um relatório esse semestre!")
