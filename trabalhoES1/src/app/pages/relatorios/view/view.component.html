@@ -12,8 +12,8 @@
       <td>
         <button (click)="parecer = true" *ngIf="report?.parecerOrientador == '' && !parecer && report?.leaderCode == userDataService.getUserUID()" color="accent" mat-raised-button><mat-icon>rate_review</mat-icon> Redigir Parecer</button>
         <button (click)="parecer = false" *ngIf="report?.parecerOrientador == '' && parecer && report?.leaderCode == userDataService.getUserUID()" color="warn" mat-raised-button><mat-icon>close</mat-icon> Cancelar</button>
-        <button (click)="parecer = true" *ngIf="isCCP && report?.parecerCCP == '' && !parecer" color="accent" mat-raised-button><mat-icon>rate_review</mat-icon> Redigir Parecer Final</button>
-        <button (click)="parecer = false" *ngIf="isCCP && report?.parecerCCP == '' && parecer" color="warn" mat-raised-button><mat-icon>close</mat-icon> Cancelar</button>
+        <button (click)="parecer = true" *ngIf="isCCP && report?.parecerOrientador != '' && report?.parecerCCP == '' && !parecer" color="accent" mat-raised-button><mat-icon>rate_review</mat-icon> Redigir Parecer Final</button>
+        <button (click)="parecer = false" *ngIf="isCCP && report?.parecerOrientador != '' && report?.parecerCCP == '' && parecer" color="warn" mat-raised-button><mat-icon>close</mat-icon> Cancelar</button>
       </td>
     </tr>
   </table>
